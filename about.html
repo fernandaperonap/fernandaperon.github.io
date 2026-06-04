@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Fernanda Peron</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F7F6F2; --surface: #FFFFFF; --text: #1A1A18; --muted: #6B6A65;
+      --subtle: #AEADA8; --border: #E2E0DA; --accent: #1D6A4A;
+      --accent-light: #E1F5EE; --accent-mid: #5DCAA5;
+      --mono: 'DM Mono', monospace; --serif: 'Lora', serif; --sans: 'DM Sans', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.7; }
+    a { color: inherit; text-decoration: none; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(247,246,242,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 0 2rem; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-name { font-family: var(--serif); font-size: 15px; color: var(--text); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.15s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    main { padding-top: 56px; max-width: 780px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem; }
+
+    .page-header {
+      padding: 5rem 0 3rem; border-bottom: 1px solid var(--border); margin-bottom: 3rem;
+      display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem;
+    }
+    @media (max-width: 500px) { .page-header { grid-template-columns: 1fr; } }
+    .page-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--subtle); text-transform: uppercase; margin-bottom: 1rem; }
+    h1 { font-family: var(--serif); font-size: 2.4rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .header-bio { font-size: 15px; color: var(--muted); max-width: 480px; line-height: 1.7; }
+    .header-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+    .header-link { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.06em; display: flex; align-items: center; gap: 5px; }
+    .header-link:hover { text-decoration: underline; }
+
+    .cv-section { margin-bottom: 3rem; }
+    .cv-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--subtle); text-transform: uppercase; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+
+    .cv-entry { display: grid; grid-template-columns: 140px 1fr; gap: 1.5rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+    .cv-entry:last-child { border-bottom: none; }
+    @media (max-width: 520px) { .cv-entry { grid-template-columns: 1fr; gap: 0.25rem; } }
+
+    .cv-date { font-family: var(--mono); font-size: 11px; color: var(--subtle); padding-top: 3px; line-height: 1.5; }
+    .cv-body {}
+    .cv-org { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+    .cv-role { font-size: 13px; color: var(--accent); margin-bottom: 4px; }
+    .cv-detail { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .cv-note { font-family: var(--mono); font-size: 11px; color: var(--subtle); margin-top: 5px; }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 520px) { .skills-grid { grid-template-columns: 1fr 1fr; } }
+    .skill-group { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; }
+    .skill-group-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+    .skill-list { list-style: none; }
+    .skill-list li { font-size: 13px; color: var(--muted); padding: 2px 0; }
+
+    .lang-row { display: flex; flex-direction: column; gap: 10px; }
+    .lang-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; }
+    .lang-name { font-size: 14px; font-weight: 500; }
+    .lang-level { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+    .pub-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; }
+    .pub-title { font-size: 14px; font-weight: 500; line-height: 1.4; margin-bottom: 6px; }
+    .pub-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+    .pub-note { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .pub-badge { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 2px; background: var(--accent-light); color: var(--accent); letter-spacing: 0.06em; margin-bottom: 10px; }
+
+    .award-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .award-row { background: var(--surface); padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .award-name { font-size: 14px; color: var(--text); }
+    .award-org { font-family: var(--mono); font-size: 11px; color: var(--subtle); white-space: nowrap; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    main { animation: fadeUp 0.6s ease forwards; }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 12px; color: var(--subtle); margin-top: 5rem; font-family: var(--mono); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Fernanda Peron</span>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="about.html" class="active">About</a>
+  </div>
+</nav>
+
+<main>
+  <div class="page-header">
+    <div>
+      <p class="page-label">Background</p>
+      <h1>Fernanda Peron</h1>
+      <p class="header-bio">
+        Economist and policy analyst working at the intersection of sustainable finance regulation, carbon markets, and emerging market policy. Based in Paris.
+      </p>
+    </div>
+    <div class="header-links">
+      <a href="https://www.linkedin.com/in/fernanda-peron-98b231202" class="header-link" target="_blank">↗ LinkedIn</a>
+      <!-- Add your email below -->
+      <a href="mailto:your@email.com" class="header-link">↗ Email</a>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="cv-section">
+    <p class="cv-label">Experience</p>
+
+    <div class="cv-entry">
+      <div class="cv-date">2024 – 2026<br>Paris</div>
+      <div class="cv-body">
+        <p class="cv-org">Amundi Asset Management</p>
+        <p class="cv-role">ESG Regulatory Strategy — Alternante</p>
+        <p class="cv-detail">Comparative analysis of sustainable finance taxonomies across Latin America (Brazil, Colombia, Mexico, Chile) and Asia (South Korea, China, India, Hong Kong, Singapore). SFDR 2.0 regulatory monitoring and analysis of EU Parliament coalition dynamics on sustainable finance rollback. EU ETS, Korean ETS, and Japan carbon pricing research.</p>
+      </div>
+    </div>
+
+    <div class="cv-entry">
+      <div class="cv-date">2022<br>São Paulo</div>
+      <div class="cv-body">
+        <p class="cv-org">Bank of America</p>
+        <p class="cv-role">Macroeconomics — Intern</p>
+        <p class="cv-detail">Macroeconomic analysis and research support for the Brazil desk.</p>
+      </div>
+    </div>
+
+    <div class="cv-entry">
+      <div class="cv-date">2021<br>São Paulo</div>
+      <div class="cv-body">
+        <p class="cv-org">C6 Bank</p>
+        <p class="cv-role">Business Analytics — Intern</p>
+        <p class="cv-detail">Data analysis and business intelligence using Python and SQL.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="cv-section">
+    <p class="cv-label">Education</p>
+
+    <div class="cv-entry">
+      <div class="cv-date">2024 – 2026<br>Paris</div>
+      <div class="cv-body">
+        <p class="cv-org">Sciences Po Paris — School of Public Affairs</p>
+        <p class="cv-role">M.Sc. Economics and Public Policy</p>
+        <p class="cv-detail">Thesis: effect of the Paris Agreement on European stock prices. Event study methodology, Fama-French three-factor model, BERT-based climate news classifier trained on Financial Times articles.</p>
+      </div>
+    </div>
+
+    <div class="cv-entry">
+      <div class="cv-date">2019 – 2023<br>São Paulo</div>
+      <div class="cv-body">
+        <p class="cv-org">Universidade de São Paulo (USP)</p>
+        <p class="cv-role">B.A. Economics</p>
+        <p class="cv-detail">Graduated in the top 8% of cohort. Undergraduate thesis published in Economics Letters.</p>
+        <p class="cv-note">↳ Published in Economics Letters</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUBLICATIONS -->
+  <div class="cv-section">
+    <p class="cv-label">Publications</p>
+    <div class="pub-card">
+      <span class="pub-badge">Peer-reviewed</span>
+      <!-- Replace with your actual paper title, journal volume/issue, and DOI/link -->
+      <p class="pub-title">Your paper title here</p>
+      <p class="pub-meta">Economics Letters · 2023 · Vol. XX</p>
+      <p class="pub-note">Brief one-sentence description of the paper's main finding or contribution. Add the DOI link below.</p>
+      <!-- <a href="https://doi.org/..." style="font-family: var(--mono); font-size: 11px; color: var(--accent); margin-top: 8px; display: inline-block;">↗ View paper</a> -->
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="cv-section">
+    <p class="cv-label">Technical skills</p>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <p class="skill-group-label">Languages</p>
+        <ul class="skill-list">
+          <li>Python</li>
+          <li>SQL</li>
+          <li>R (basic)</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <p class="skill-group-label">Finance tools</p>
+        <ul class="skill-list">
+          <li>Bloomberg Terminal</li>
+          <li>Excel (advanced)</li>
+          <li>Refinitiv</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <p class="skill-group-label">Python stack</p>
+        <ul class="skill-list">
+          <li>pandas, numpy</li>
+          <li>statsmodels</li>
+          <li>linearmodels</li>
+          <li>Plotly, D3</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANGUAGES -->
+  <div class="cv-section">
+    <p class="cv-label">Languages</p>
+    <div class="lang-row">
+      <div class="lang-item">
+        <span class="lang-name">Portuguese</span>
+        <span class="lang-level">Native</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">French</span>
+        <span class="lang-level">Fluent (C1/C2)</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">English</span>
+        <span class="lang-level">Fluent (C1/C2)</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">Spanish</span>
+        <span class="lang-level">Professional (B2/C1)</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">Italian</span>
+        <span class="lang-level">Native / Heritage</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AWARDS -->
+  <div class="cv-section">
+    <p class="cv-label">Awards and recognition</p>
+    <div class="award-list">
+      <div class="award-row">
+        <span class="award-name">Top 8% of graduating cohort</span>
+        <span class="award-org">USP · 2023</span>
+      </div>
+      <div class="award-row">
+        <span class="award-name">Publication in Economics Letters</span>
+        <span class="award-org">USP · 2023</span>
+      </div>
+      <!-- Add more rows as needed -->
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  fernandaperon.github.io &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/fernanda-peron-98b231202" style="color: var(--accent);">LinkedIn</a>
+</footer>
+
+</body>
+</html>
