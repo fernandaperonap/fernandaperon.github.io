@@ -1,252 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects — Fernanda Peron</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #F7F6F2; --surface: #FFFFFF; --text: #1A1A18; --muted: #6B6A65;
-      --subtle: #AEADA8; --border: #E2E0DA; --accent: #1D6A4A;
-      --accent-light: #E1F5EE; --accent-mid: #5DCAA5;
-      --mono: 'DM Mono', monospace; --serif: 'Lora', serif; --sans: 'DM Sans', sans-serif;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.7; }
-    a { color: inherit; text-decoration: none; }
-
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(247,246,242,0.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border); padding: 0 2rem; height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-name { font-family: var(--serif); font-size: 15px; color: var(--text); }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.15s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-
-    main { padding-top: 56px; max-width: 780px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem; }
-
-    .page-header { padding: 5rem 0 3rem; border-bottom: 1px solid var(--border); margin-bottom: 3rem; }
-    .page-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--subtle); text-transform: uppercase; margin-bottom: 1rem; }
-    h1 { font-family: var(--serif); font-size: 2.4rem; font-weight: 400; letter-spacing: -0.02em; }
-
-    .filter-row { display: flex; gap: 8px; margin-bottom: 2.5rem; flex-wrap: wrap; }
-    .filter-btn {
-      font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
-      padding: 5px 14px; border-radius: 3px; border: 1px solid var(--border);
-      background: transparent; color: var(--muted); cursor: pointer; transition: all 0.15s;
-    }
-    .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-
-    .proj-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-
-    .proj-row {
-      background: var(--surface); padding: 1.5rem;
-      display: grid; grid-template-columns: 1fr auto;
-      gap: 1rem; align-items: start;
-      transition: background 0.15s;
-      opacity: 0; animation: fadeUp 0.5s ease forwards;
-    }
-    .proj-row:hover { background: #FAFAF7; }
-    .proj-row:nth-child(1) { animation-delay: 0.05s; }
-    .proj-row:nth-child(2) { animation-delay: 0.10s; }
-    .proj-row:nth-child(3) { animation-delay: 0.15s; }
-    .proj-row:nth-child(4) { animation-delay: 0.20s; }
-    .proj-row:nth-child(5) { animation-delay: 0.25s; }
-
-    .proj-row-left { display: flex; flex-direction: column; gap: 6px; }
-    .proj-row-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .proj-title { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.3; }
-    .proj-desc { font-size: 13px; color: var(--muted); line-height: 1.6; max-width: 540px; }
-    .proj-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
-    .proj-tag { font-family: var(--mono); font-size: 10px; padding: 2px 8px; background: var(--bg); border: 1px solid var(--border); border-radius: 2px; color: var(--subtle); }
-
-    .card-badge {
-      display: inline-block; font-family: var(--mono); font-size: 10px;
-      letter-spacing: 0.08em; padding: 2px 8px; border-radius: 2px;
-      text-transform: uppercase; white-space: nowrap;
-    }
-    .badge-published { background: var(--accent-light); color: var(--accent); }
-    .badge-wip { background: #FAEEDA; color: #854F0B; }
-
-    .proj-link {
-      font-family: var(--mono); font-size: 11px; color: var(--accent);
-      letter-spacing: 0.06em; white-space: nowrap; display: inline-flex;
-      align-items: center; gap: 4px; margin-top: 4px; transition: gap 0.15s;
-    }
-    .proj-link:hover { gap: 8px; }
-    .proj-link.disabled { color: var(--subtle); pointer-events: none; }
-
-    .section-divider { margin: 3rem 0 1.5rem; }
-    .section-divider-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--subtle); text-transform: uppercase; margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 12px; color: var(--subtle); margin-top: 5rem; font-family: var(--mono); }
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.7">
+  <style type="text/css">
+    body {background-color: #f5f4ef}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px 'Helvetica Neue'; color: #141413; -webkit-text-stroke: #141413}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #585752; -webkit-text-stroke: #585752}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #19593a; -webkit-text-stroke: #19593a}
+    p.p4 {margin: 0.0px 0.0px 12.0px 0.0px; font: 10.0px 'Helvetica Neue'; color: #9e9d97; -webkit-text-stroke: #9e9d97}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 11.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; background-color: #19593a}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 11.0px 'Helvetica Neue'; color: #585752; -webkit-text-stroke: #585752}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #141413; -webkit-text-stroke: #141413; min-height: 15.0px}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px 'Helvetica Neue'; color: #19593a; -webkit-text-stroke: #19593a; background-color: #daf3ea}
+    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; color: #585752; -webkit-text-stroke: #585752}
+    p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px 'Helvetica Neue'; color: #9e9d97; -webkit-text-stroke: #9e9d97; background-color: #f5f4ef}
+    p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #9e9d97; -webkit-text-stroke: #9e9d97}
+    p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 12.0px 'Helvetica Neue'; color: #9e9d97; -webkit-text-stroke: #9e9d97}
+    span.s1 {font-kerning: none; background-color: rgba(245, 244, 239, 0.92)}
+    span.s2 {font: 12.0px 'Helvetica Neue'; font-kerning: none; color: #585752; -webkit-text-stroke: 0px #585752}
+    span.s3 {font: 12.0px 'Helvetica Neue'; font-kerning: none; color: #19593a; -webkit-text-stroke: 0px #19593a}
+    span.s4 {font-kerning: none}
+    span.s5 {font-kerning: none; background-color: #ffffff}
+    span.s6 {font: 13.0px 'Helvetica Neue'; font-kerning: none; color: #585752; background-color: #ffffff; -webkit-text-stroke: 0px #585752}
   </style>
 </head>
 <body>
-
-<nav>
-  <span class="nav-name">Fernanda Peron</span>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="projects.html" class="active">Projects</a>
-    <a href="about.html">About</a>
-  </div>
-</nav>
-
-<main>
-  <div class="page-header">
-    <p class="page-label">Independent research</p>
-    <h1>Projects</h1>
-  </div>
-
-  <div class="filter-row">
-    <button class="filter-btn active">All</button>
-    <button class="filter-btn">ESG Regulation</button>
-    <button class="filter-btn">Carbon Markets</button>
-    <button class="filter-btn">LatAm</button>
-    <button class="filter-btn">Quantitative</button>
-  </div>
-
-  <div class="section-divider">
-    <p class="section-divider-label">ESG Regulation</p>
-  </div>
-
-  <div class="proj-list">
-    <div class="proj-row">
-      <div class="proj-row-left">
-        <div class="proj-row-top">
-          <span class="card-badge badge-published">Published</span>
-        </div>
-        <p class="proj-title">SFDR 2.0: mapping the political coalitions behind the rollback</p>
-        <p class="proj-desc">
-          Quantitative analysis of European Parliament voting patterns on sustainable finance legislation (SFDR, CSRD, Omnibus package). Coalition scoring by country, party group, and vote type. Includes an interactive Plotly dashboard.
-        </p>
-        <div class="proj-tags">
-          <span class="proj-tag">Python</span>
-          <span class="proj-tag">Plotly</span>
-          <span class="proj-tag">EP voting data</span>
-          <span class="proj-tag">ESG regulation</span>
-        </div>
-        <a href="#" class="proj-link">View project →</a>
-      </div>
-    </div>
-
-    <div class="proj-row">
-      <div class="proj-row-left">
-        <div class="proj-row-top">
-          <span class="card-badge badge-published">Published</span>
-        </div>
-        <p class="proj-title">Latin American sustainable taxonomies: interoperability with the EU baseline</p>
-        <p class="proj-desc">
-          Structural comparison of Colombia, Mexico, Brazil, and Chile against the EU Taxonomy across activity coverage, technical screening criteria, and DNSH principles. Includes a convergence scoring matrix and ~4,000-word interoperability report.
-        </p>
-        <div class="proj-tags">
-          <span class="proj-tag">Excel</span>
-          <span class="proj-tag">Regulatory analysis</span>
-          <span class="proj-tag">LatAm</span>
-          <span class="proj-tag">EU Taxonomy</span>
-        </div>
-        <a href="#" class="proj-link">View project →</a>
-      </div>
-    </div>
-
-    <div class="proj-row">
-      <div class="proj-row-left">
-        <div class="proj-row-top">
-          <span class="card-badge badge-published">Published</span>
-        </div>
-        <p class="proj-title">Asian sustainable finance regulatory tracker</p>
-        <p class="proj-desc">
-          Timeline and headline summary of ESG disclosure and taxonomy developments across South Korea, China, India, Hong Kong, and Singapore. Built for comparative regulatory intelligence.
-        </p>
-        <div class="proj-tags">
-          <span class="proj-tag">Regulatory mapping</span>
-          <span class="proj-tag">Asia</span>
-          <span class="proj-tag">ESG disclosure</span>
-        </div>
-        <a href="#" class="proj-link">View project →</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-divider" style="margin-top: 2.5rem;">
-    <p class="section-divider-label">Quantitative finance</p>
-  </div>
-
-  <div class="proj-list">
-    <div class="proj-row">
-      <div class="proj-row-left">
-        <div class="proj-row-top">
-          <span class="card-badge badge-wip">In progress</span>
-        </div>
-        <p class="proj-title">Paris Agreement and EU stock returns: an event study</p>
-        <p class="proj-desc">
-          Abnormal returns around COP21 (December 2015) using the Fama-French three-factor model, estimated on Bloomberg panel data. Firm-level GHG exposure constructed via a BERT-based climate news classifier trained on Financial Times articles. Sector-level and firm-level specifications, following the Pástor-Veronesi policy uncertainty framework.
-        </p>
-        <div class="proj-tags">
-          <span class="proj-tag">Python</span>
-          <span class="proj-tag">Bloomberg</span>
-          <span class="proj-tag">linearmodels</span>
-          <span class="proj-tag">BERT</span>
-          <span class="proj-tag">Event study</span>
-        </div>
-        <a href="#" class="proj-link disabled">Coming soon</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-divider" style="margin-top: 2.5rem;">
-    <p class="section-divider-label">Carbon markets</p>
-  </div>
-
-  <div class="proj-list">
-    <div class="proj-row">
-      <div class="proj-row-left">
-        <div class="proj-row-top">
-          <span class="card-badge badge-wip">In progress</span>
-        </div>
-        <p class="proj-title">ETS tracker: EU, Korea, and Japan carbon pricing compared</p>
-        <p class="proj-desc">
-          Interactive timeline and policy comparison of three major emissions trading systems. Covers linear reduction factors, price trajectories, sector coverage, and recent regulatory changes. Built with D3 on public ETS data.
-        </p>
-        <div class="proj-tags">
-          <span class="proj-tag">D3</span>
-          <span class="proj-tag">Carbon markets</span>
-          <span class="proj-tag">EU ETS</span>
-          <span class="proj-tag">Public data</span>
-        </div>
-        <a href="#" class="proj-link disabled">Coming soon</a>
-      </div>
-    </div>
-  </div>
-
-</main>
-
-<footer>
-  fernandaperon.github.io &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/fernanda-peron-98b231202" style="color: var(--accent);">LinkedIn</a>
-</footer>
-
-<script>
-  const btns = document.querySelectorAll('.filter-btn');
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-</script>
-
+<p class="p1"><span class="s1">Fernanda Peron</span></p>
+<p class="p2"><span class="s1"><a href="file:///Users/fernanda/Personal_projects/fernandaperon.github.io/index.html">HOME<span class="s2"></span></a></span></p>
+<p class="p3"><span class="s1"><a href="file:///Users/fernanda/Personal_projects/fernandaperon.github.io/projects.html">PROJECTS<span class="s3"></span></a></span></p>
+<p class="p2"><span class="s1"><a href="file:///Users/fernanda/Personal_projects/fernandaperon.github.io/about.html">ABOUT<span class="s2"></span></a></span></p>
+<p class="p4"><span class="s4">INDEPENDENT RESEARCH</span></p>
+<h1 style="margin: 0.0px 0.0px 0.0px 0.0px; font: 28.8px 'Helvetica Neue'; color: #141413; -webkit-text-stroke: #141413"><span class="s4">Projects</span></h1>
+<p class="p6"><span class="s4">All</span></p>
+<p class="p7"><span class="s4">ESG Regulation</span></p>
+<p class="p7"><span class="s4">Carbon Markets</span></p>
+<p class="p7"><span class="s4">LatAm</span></p>
+<p class="p7"><span class="s4">Quantitative</span></p>
+<p class="p8"><span class="s4"></span><br></p>
+<p class="p4"><span class="s4">QUANTITATIVE FINANCE</span></p>
+<p class="p9"><span class="s4">PUBLISHED</span></p>
+<p class="p1"><span class="s5">Paris Agreement and EU stock returns: an event study</span></p>
+<p class="p10"><span class="s5">Abnormal returns around COP21 (December 2015) using the Fama-French three-factor model, estimated on Bloomberg panel data. Firm-level GHG exposure constructed via a BERT-based climate news classifier trained on Financial Times articles. Sector-level and firm-level specifications, following the Pástor-Veronesi policy uncertainty framework.</span></p>
+<p class="p11"><span class="s4">Python</span></p>
+<p class="p11"><span class="s4">Bloomberg</span></p>
+<p class="p11"><span class="s4">linearmodels</span></p>
+<p class="p11"><span class="s4">BERT</span></p>
+<p class="p11"><span class="s4">Event study</span></p>
+<p class="p12"><span class="s5">Coming soon</span></p>
+<p class="p4"><span class="s4">CARBON MARKETS </span><span class="s6">.</span></p>
+<p class="p11"><span class="s4">D3</span></p>
+<p class="p11"><span class="s4">Carbon markets</span></p>
+<p class="p11"><span class="s4">EU ETS</span></p>
+<p class="p11"><span class="s4">Public data</span></p>
+<p class="p12"><span class="s5">Coming soon</span></p>
+<p class="p13"><span class="s4">fernandaperon.github.io  ·  <a href="https://www.linkedin.com/in/fernanda-peron-98b231202"><span class="s3">LinkedIn</span></a></span></p>
 </body>
 </html>

@@ -1,270 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Fernanda Peron</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #F7F6F2; --surface: #FFFFFF; --text: #1A1A18; --muted: #6B6A65;
-      --subtle: #AEADA8; --border: #E2E0DA; --accent: #1D6A4A;
-      --accent-light: #E1F5EE; --accent-mid: #5DCAA5;
-      --mono: 'DM Mono', monospace; --serif: 'Lora', serif; --sans: 'DM Sans', sans-serif;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.7; }
-    a { color: inherit; text-decoration: none; }
-
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(247,246,242,0.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border); padding: 0 2rem; height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-name { font-family: var(--serif); font-size: 15px; color: var(--text); }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.15s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-
-    main { padding-top: 56px; max-width: 780px; margin: 0 auto; padding-left: 2rem; padding-right: 2rem; }
-
-    .page-header {
-      padding: 5rem 0 3rem; border-bottom: 1px solid var(--border); margin-bottom: 3rem;
-      display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem;
-    }
-    @media (max-width: 500px) { .page-header { grid-template-columns: 1fr; } }
-    .page-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--subtle); text-transform: uppercase; margin-bottom: 1rem; }
-    h1 { font-family: var(--serif); font-size: 2.4rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-    .header-bio { font-size: 15px; color: var(--muted); max-width: 480px; line-height: 1.7; }
-    .header-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
-    .header-link { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.06em; display: flex; align-items: center; gap: 5px; }
-    .header-link:hover { text-decoration: underline; }
-
-    .cv-section { margin-bottom: 3rem; }
-    .cv-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--subtle); text-transform: uppercase; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
-
-    .cv-entry { display: grid; grid-template-columns: 140px 1fr; gap: 1.5rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
-    .cv-entry:last-child { border-bottom: none; }
-    @media (max-width: 520px) { .cv-entry { grid-template-columns: 1fr; gap: 0.25rem; } }
-
-    .cv-date { font-family: var(--mono); font-size: 11px; color: var(--subtle); padding-top: 3px; line-height: 1.5; }
-    .cv-body {}
-    .cv-org { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
-    .cv-role { font-size: 13px; color: var(--accent); margin-bottom: 4px; }
-    .cv-detail { font-size: 13px; color: var(--muted); line-height: 1.65; }
-    .cv-note { font-family: var(--mono); font-size: 11px; color: var(--subtle); margin-top: 5px; }
-
-    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    @media (max-width: 520px) { .skills-grid { grid-template-columns: 1fr 1fr; } }
-    .skill-group { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; }
-    .skill-group-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
-    .skill-list { list-style: none; }
-    .skill-list li { font-size: 13px; color: var(--muted); padding: 2px 0; }
-
-    .lang-row { display: flex; flex-direction: column; gap: 10px; }
-    .lang-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; }
-    .lang-name { font-size: 14px; font-weight: 500; }
-    .lang-level { font-family: var(--mono); font-size: 11px; color: var(--muted); }
-
-    .pub-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem 1.5rem; }
-    .pub-title { font-size: 14px; font-weight: 500; line-height: 1.4; margin-bottom: 6px; }
-    .pub-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 8px; }
-    .pub-note { font-size: 13px; color: var(--muted); line-height: 1.6; }
-    .pub-badge { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 2px; background: var(--accent-light); color: var(--accent); letter-spacing: 0.06em; margin-bottom: 10px; }
-
-    .award-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-    .award-row { background: var(--surface); padding: 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-    .award-name { font-size: 14px; color: var(--text); }
-    .award-org { font-family: var(--mono); font-size: 11px; color: var(--subtle); white-space: nowrap; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    main { animation: fadeUp 0.6s ease forwards; }
-
-    footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 12px; color: var(--subtle); margin-top: 5rem; font-family: var(--mono); }
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.7">
+  <style type="text/css">
+    body {background-color: #f5f4ef}
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px 'Helvetica Neue'; color: #141413; -webkit-text-stroke: #141413}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #585752; -webkit-text-stroke: #585752}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #19593a; -webkit-text-stroke: #19593a}
+    p.p4 {margin: 0.0px 0.0px 12.0px 0.0px; font: 10.0px 'Helvetica Neue'; color: #9e9d97; -webkit-text-stroke: #9e9d97}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px 'Helvetica Neue'; color: #585752; -webkit-text-stroke: #585752}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #19593a; -webkit-text-stroke: #19593a}
+    p.p8 {margin: 0.0px 0.0px 15.0px 0.0px; font: 10.0px 'Helvetica Neue'; color: #9e9d97; -webkit-text-stroke: #9e9d97}
+    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #9e9d97; -webkit-text-stroke: #9e9d97}
+    p.p10 {margin: 0.0px 0.0px 2.0px 0.0px; font: 13.0px 'Helvetica Neue'; color: #141413; -webkit-text-stroke: #141413}
+    p.p11 {margin: 0.0px 0.0px 4.0px 0.0px; font: 13.0px 'Helvetica Neue'; color: #19593a; -webkit-text-stroke: #19593a}
+    p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; color: #585752; -webkit-text-stroke: #585752}
+    p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 10.0px 'Helvetica Neue'; color: #19593a; -webkit-text-stroke: #19593a; min-height: 12.0px}
+    p.p14 {margin: 0.0px 0.0px 8.0px 0.0px; font: 10.0px 'Helvetica Neue'; color: #19593a; -webkit-text-stroke: #19593a}
+    p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px 'Helvetica Neue'; color: #141413; -webkit-text-stroke: #141413}
+    p.p16 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #585752; -webkit-text-stroke: #585752}
+    p.p17 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 12.0px 'Helvetica Neue'; color: #9e9d97; -webkit-text-stroke: #9e9d97}
+    li.li12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; color: #585752; -webkit-text-stroke: #585752}
+    span.s1 {font-kerning: none; background-color: rgba(245, 244, 239, 0.92)}
+    span.s2 {font: 12.0px 'Helvetica Neue'; font-kerning: none; color: #585752; -webkit-text-stroke: 0px #585752}
+    span.s3 {font: 12.0px 'Helvetica Neue'; font-kerning: none; color: #19593a; -webkit-text-stroke: 0px #19593a}
+    span.s4 {font-kerning: none}
+    span.s5 {font: 12.0px 'Helvetica Neue'; font-kerning: none; color: #141413; -webkit-text-stroke: 0px #141413}
+    span.s6 {font: 11.0px 'Helvetica Neue'; font-kerning: none; color: #19593a; -webkit-text-stroke: 0px #19593a}
+    span.s7 {font: 11.0px 'Apple SD Gothic Neo'; font-kerning: none}
+    span.s8 {font-kerning: none; background-color: #daf3ea}
+    span.s9 {font-kerning: none; background-color: #ffffff}
+    span.s10 {background-color: #ffffff; -webkit-text-stroke: 0px #000000}
+    ul.ul1 {list-style-type: none}
   </style>
 </head>
 <body>
-
-<nav>
-  <span class="nav-name">Fernanda Peron</span>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="projects.html">Projects</a>
-    <a href="about.html" class="active">About</a>
-  </div>
-</nav>
-
-<main>
-  <div class="page-header">
-    <div>
-      <p class="page-label">Background</p>
-      <h1>Fernanda Peron</h1>
-      <p class="header-bio">
-        Economist and policy analyst working at the intersection of sustainable finance regulation, carbon markets, and emerging market policy. Based in Paris.
-      </p>
-    </div>
-    <div class="header-links">
-      <a href="https://www.linkedin.com/in/fernanda-peron-98b231202" class="header-link" target="_blank">↗ LinkedIn</a>
-      <!-- Add your email below -->
-      <a href="mailto:your@email.com" class="header-link">↗ Email</a>
-    </div>
-  </div>
-
-  <!-- EXPERIENCE -->
-  <div class="cv-section">
-    <p class="cv-label">Experience</p>
-
-    <div class="cv-entry">
-      <div class="cv-date">2024 – 2026<br>Paris</div>
-      <div class="cv-body">
-        <p class="cv-org">Amundi Asset Management</p>
-        <p class="cv-role">ESG Regulatory Strategy — Alternante</p>
-        <p class="cv-detail">Comparative analysis of sustainable finance taxonomies across Latin America (Brazil, Colombia, Mexico, Chile) and Asia (South Korea, China, India, Hong Kong, Singapore). SFDR 2.0 regulatory monitoring and analysis of EU Parliament coalition dynamics on sustainable finance rollback. EU ETS, Korean ETS, and Japan carbon pricing research.</p>
-      </div>
-    </div>
-
-    <div class="cv-entry">
-      <div class="cv-date">2022<br>São Paulo</div>
-      <div class="cv-body">
-        <p class="cv-org">Bank of America</p>
-        <p class="cv-role">Macroeconomics — Intern</p>
-        <p class="cv-detail">Macroeconomic analysis and research support for the Brazil desk.</p>
-      </div>
-    </div>
-
-    <div class="cv-entry">
-      <div class="cv-date">2021<br>São Paulo</div>
-      <div class="cv-body">
-        <p class="cv-org">C6 Bank</p>
-        <p class="cv-role">Business Analytics — Intern</p>
-        <p class="cv-detail">Data analysis and business intelligence using Python and SQL.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- EDUCATION -->
-  <div class="cv-section">
-    <p class="cv-label">Education</p>
-
-    <div class="cv-entry">
-      <div class="cv-date">2024 – 2026<br>Paris</div>
-      <div class="cv-body">
-        <p class="cv-org">Sciences Po Paris — School of Public Affairs</p>
-        <p class="cv-role">M.Sc. Economics and Public Policy</p>
-        <p class="cv-detail">Thesis: effect of the Paris Agreement on European stock prices. Event study methodology, Fama-French three-factor model, BERT-based climate news classifier trained on Financial Times articles.</p>
-      </div>
-    </div>
-
-    <div class="cv-entry">
-      <div class="cv-date">2019 – 2023<br>São Paulo</div>
-      <div class="cv-body">
-        <p class="cv-org">Universidade de São Paulo (USP)</p>
-        <p class="cv-role">B.A. Economics</p>
-        <p class="cv-detail">Graduated in the top 8% of cohort. Undergraduate thesis published in Economics Letters.</p>
-        <p class="cv-note">↳ Published in Economics Letters</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- PUBLICATIONS -->
-  <div class="cv-section">
-    <p class="cv-label">Publications</p>
-    <div class="pub-card">
-      <span class="pub-badge">Peer-reviewed</span>
-      <!-- Replace with your actual paper title, journal volume/issue, and DOI/link -->
-      <p class="pub-title">Your paper title here</p>
-      <p class="pub-meta">Economics Letters · 2023 · Vol. XX</p>
-      <p class="pub-note">Brief one-sentence description of the paper's main finding or contribution. Add the DOI link below.</p>
-      <!-- <a href="https://doi.org/..." style="font-family: var(--mono); font-size: 11px; color: var(--accent); margin-top: 8px; display: inline-block;">↗ View paper</a> -->
-    </div>
-  </div>
-
-  <!-- SKILLS -->
-  <div class="cv-section">
-    <p class="cv-label">Technical skills</p>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <p class="skill-group-label">Languages</p>
-        <ul class="skill-list">
-          <li>Python</li>
-          <li>SQL</li>
-          <li>R (basic)</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <p class="skill-group-label">Finance tools</p>
-        <ul class="skill-list">
-          <li>Bloomberg Terminal</li>
-          <li>Excel (advanced)</li>
-          <li>Refinitiv</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <p class="skill-group-label">Python stack</p>
-        <ul class="skill-list">
-          <li>pandas, numpy</li>
-          <li>statsmodels</li>
-          <li>linearmodels</li>
-          <li>Plotly, D3</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- LANGUAGES -->
-  <div class="cv-section">
-    <p class="cv-label">Languages</p>
-    <div class="lang-row">
-      <div class="lang-item">
-        <span class="lang-name">Portuguese</span>
-        <span class="lang-level">Native</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">French</span>
-        <span class="lang-level">Fluent (C1/C2)</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">English</span>
-        <span class="lang-level">Fluent (C1/C2)</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">Spanish</span>
-        <span class="lang-level">Professional (B2/C1)</span>
-      </div>
-      <div class="lang-item">
-        <span class="lang-name">Italian</span>
-        <span class="lang-level">Native / Heritage</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- AWARDS -->
-  <div class="cv-section">
-    <p class="cv-label">Awards and recognition</p>
-    <div class="award-list">
-      <div class="award-row">
-        <span class="award-name">Top 8% of graduating cohort</span>
-        <span class="award-org">USP · 2023</span>
-      </div>
-      <div class="award-row">
-        <span class="award-name">Publication in Economics Letters</span>
-        <span class="award-org">USP · 2023</span>
-      </div>
-      <!-- Add more rows as needed -->
-    </div>
-  </div>
-
-</main>
-
-<footer>
-  fernandaperon.github.io &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/fernanda-peron-98b231202" style="color: var(--accent);">LinkedIn</a>
-</footer>
-
+<p class="p1"><span class="s1">Fernanda Peron</span></p>
+<p class="p2"><span class="s1"><a href="file:///Users/fernanda/Personal_projects/fernandaperon.github.io/index.html">HOME<span class="s2"></span></a></span></p>
+<p class="p2"><span class="s1"><a href="file:///Users/fernanda/Personal_projects/fernandaperon.github.io/projects.html">PROJECTS<span class="s2"></span></a></span></p>
+<p class="p3"><span class="s1"><a href="file:///Users/fernanda/Personal_projects/fernandaperon.github.io/about.html">ABOUT<span class="s3"></span></a></span></p>
+<p class="p4"><span class="s4">BACKGROUND</span></p>
+<h1 style="margin: 0.0px 0.0px 9.0px 0.0px; font: 28.8px 'Helvetica Neue'; color: #141413; -webkit-text-stroke: #141413"><span class="s4">Fernanda Peron</span></h1>
+<p class="p6"><span class="s4">Economist and policy analyst working at the intersection of sustainable finance regulation, carbon markets, and emerging market policy. Based in Paris.</span></p>
+<p class="p7"><span class="s4"><a href="https://www.linkedin.com/in/fernanda-peron-98b231202">↗ LinkedIn</a></span><span class="s5"> <a href="mailto:your@email.com"><span class="s6">↗ Email</span></a></span></p>
+<p class="p8"><span class="s4">EXPERIENCE</span></p>
+<p class="p9"><span class="s4">2024 – 2026</span></p>
+<p class="p9"><span class="s4">Paris</span></p>
+<p class="p10"><span class="s4">Amundi Asset Management</span></p>
+<p class="p11"><span class="s4">ESG Regulatory Strategy — Alternante</span></p>
+<p class="p12"><span class="s4">Comparative analysis of sustainable finance taxonomies across Latin America (Brazil, Colombia, Mexico, Chile) and Asia (South Korea, China, India, Hong Kong, Singapore). SFDR 2.0 regulatory monitoring and analysis of EU Parliament coalition dynamics on sustainable finance rollback. EU ETS, Korean ETS, and Japan carbon pricing research.</span></p>
+<p class="p9"><span class="s4">2022</span></p>
+<p class="p9"><span class="s4">São Paulo</span></p>
+<p class="p10"><span class="s4">Bank of America</span></p>
+<p class="p11"><span class="s4">Macroeconomics — Intern</span></p>
+<p class="p12"><span class="s4">Macroeconomic analysis and research support for the Brazil desk.</span></p>
+<p class="p9"><span class="s4">2021</span></p>
+<p class="p9"><span class="s4">São Paulo</span></p>
+<p class="p10"><span class="s4">C6 Bank</span></p>
+<p class="p11"><span class="s4">Business Analytics — Intern</span></p>
+<p class="p12"><span class="s4">Data analysis and business intelligence using Python and SQL.</span></p>
+<p class="p8"><span class="s4">EDUCATION</span></p>
+<p class="p9"><span class="s4">2024 – 2026</span></p>
+<p class="p9"><span class="s4">Paris</span></p>
+<p class="p10"><span class="s4">Sciences Po Paris — School of Public Affairs</span></p>
+<p class="p11"><span class="s4">MA Economics and Public Policy</span></p>
+<p class="p12"><span class="s4">Thesis: effect of the Paris Agreement on European stock prices. Event study methodology, Fama-French three-factor model, BERT-based climate news classifier trained on Financial Times articles.</span></p>
+<p class="p9"><span class="s4">2019 – 2023</span></p>
+<p class="p9"><span class="s4">São Paulo</span></p>
+<p class="p10"><span class="s4">Universidade de São Paulo (USP)</span></p>
+<p class="p11"><span class="s4">B.A. Economics</span></p>
+<p class="p12"><span class="s4">Graduated in the top 8% of cohort. Undergraduate thesis published in Economics Letters.</span></p>
+<p class="p9"><span class="s7">↳</span><span class="s4"> Published in Economics Letters</span></p>
+<p class="p8"><span class="s4">PUBLICATIONS</span></p>
+<p class="p13"><span class="s8"><span class="Apple-converted-space"> </span></span></p>
+<p class="p8"><span class="s4">TECHNICAL SKILLS</span></p>
+<p class="p14"><span class="s9">LANGUAGES</span></p>
+<ul class="ul1">
+  <li class="li12"><span class="s10"></span><span class="s9">Python</span></li>
+  <li class="li12"><span class="s10"></span><span class="s9">SQL</span></li>
+  <li class="li12"><span class="s10"></span><span class="s9">R (basic)</span></li>
+</ul>
+<p class="p14"><span class="s9">FINANCE TOOLS</span></p>
+<ul class="ul1">
+  <li class="li12"><span class="s10"></span><span class="s9">Bloomberg Terminal</span></li>
+  <li class="li12"><span class="s10"></span><span class="s9">Excel (advanced)</span></li>
+  <li class="li12"><span class="s10"></span><span class="s9">Refinitiv</span></li>
+</ul>
+<p class="p14"><span class="s9">PYTHON STACK</span></p>
+<ul class="ul1">
+  <li class="li12"><span class="s10"></span><span class="s9">pandas, numpy</span></li>
+  <li class="li12"><span class="s10"></span><span class="s9">statsmodels</span></li>
+  <li class="li12"><span class="s10"></span><span class="s9">linearmodels</span></li>
+  <li class="li12"><span class="s10"></span><span class="s9">Plotly, D3</span></li>
+</ul>
+<p class="p8"><span class="s4">LANGUAGES</span></p>
+<p class="p15"><span class="s9">Portuguese</span></p>
+<p class="p16"><span class="s9">Native</span></p>
+<p class="p15"><span class="s9">French</span></p>
+<p class="p16"><span class="s9">Fluent (C1/C2)</span></p>
+<p class="p15"><span class="s9">English</span></p>
+<p class="p16"><span class="s9">Fluent (C1/C2)</span></p>
+<p class="p15"><span class="s9">Spanish</span></p>
+<p class="p16"><span class="s9">Professional (B2/C1)</span></p>
+<p class="p15"><span class="s9">Italian</span></p>
+<p class="p16"><span class="s9">Native / Heritage</span></p>
+<p class="p8"><span class="s4">AWARDS AND RECOGNITION</span></p>
+<p class="p15"><span class="s9">Top 8% of graduating cohort</span></p>
+<p class="p9"><span class="s9">USP · 2023</span></p>
+<p class="p15"><span class="s9">Publication in Economics Letters</span></p>
+<p class="p9"><span class="s9">USP · 2023</span></p>
+<p class="p17"><span class="s4">fernandaperon.github.io  ·  <a href="https://www.linkedin.com/in/fernanda-peron-98b231202"><span class="s3">LinkedIn</span></a></span></p>
 </body>
 </html>
