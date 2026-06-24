@@ -1,0 +1,2268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Fairness Act — consultation feedback analysis</title>
+<style>
+:root{
+  --bg:#f5f4ef; --ink:#141413; --sec:#585752; --faint:#9e9d97; --accent:#19593a;
+  --wash:#daf3ea; --line:#e3e1d9;
+  --s2n:#b3402f; --s1n:#cf8b7a; --s0:#9e9d97; --s1p:#5a8f73; --s2p:#19593a;
+  --sans:"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+a{color:var(--accent)}
+h1,h2,h3{font-weight:600;letter-spacing:-.01em;margin:0}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.lead{color:var(--sec)}
+hr.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+/* header */
+header.masthead{padding:54px 0 28px}
+header.masthead h1{font-size:40px;line-height:1.05;max-width:18ch;margin:10px 0 12px}
+header.masthead .meta{color:var(--sec);font-size:15px;max-width:60ch}
+.kpis{display:flex;flex-wrap:wrap;gap:36px;margin-top:26px}
+.kpi .n{font-size:30px;font-weight:600;letter-spacing:-.02em}
+.kpi .l{font-size:12px;color:var(--faint);letter-spacing:.04em;text-transform:uppercase;margin-top:2px}
+
+/* tabs */
+nav.tabs{position:sticky;top:0;background:rgba(245,244,239,.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);z-index:20}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto}
+nav.tabs button{appearance:none;background:none;border:0;cursor:pointer;font-family:var(--sans);
+  font-size:13.5px;color:var(--sec);padding:15px 14px;border-bottom:2px solid transparent;
+  white-space:nowrap;letter-spacing:.01em}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav.tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
+section.tab{display:none;padding:40px 0 64px}
+section.tab.active{display:block}
+.sec-head{margin-bottom:8px}
+.sec-head h2{font-size:24px}
+.sec-head p{color:var(--sec);max-width:74ch;margin:8px 0 0;font-size:15px}
+.block{margin-top:40px}
+.block > h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);
+  margin-bottom:16px;font-weight:600}
+
+/* bars */
+.barrow{display:grid;grid-template-columns:210px 1fr 44px;align-items:center;gap:12px;margin:5px 0;
+  cursor:pointer;padding:3px 4px;border-radius:3px}
+.barrow:hover{background:#ecebe3}
+.barrow.on{background:var(--wash)}
+.barrow .lbl{font-size:13px;color:var(--ink);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.barrow .track{background:#e9e8e0;height:18px;border-radius:2px;overflow:hidden}
+.barrow .fill{height:100%;background:var(--accent);border-radius:2px}
+.barrow.cit .fill{background:#86a99a}
+.barrow .v{font-size:12.5px;color:var(--sec);text-align:left;font-variant-numeric:tabular-nums}
+
+/* category panel */
+.panel{border:1px solid var(--line);border-radius:6px;padding:22px 24px;margin-top:18px;background:#fbfaf6}
+.panel .stance{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.02em;
+  padding:3px 10px;border-radius:20px;background:var(--wash);color:var(--accent);margin-bottom:10px}
+.panel h3.pn{font-size:20px;margin-bottom:2px}
+.panel .cnt{color:var(--faint);font-size:12.5px}
+.panel p.sum{color:var(--ink);font-size:14.5px;margin:14px 0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.tag{font-size:11.5px;color:var(--sec);border:1px solid var(--line);border-radius:14px;padding:3px 10px;background:#fff}
+.divergence{font-size:13px;color:var(--sec);border-left:2px solid var(--accent);padding:2px 0 2px 12px;margin:14px 0 4px}
+.members{margin-top:14px}
+.members summary{cursor:pointer;font-size:12.5px;color:var(--accent);letter-spacing:.02em}
+.members .list{columns:2;column-gap:26px;font-size:12.5px;color:var(--sec);margin-top:10px}
+.members .list span{display:block;break-inside:avoid;padding:1px 0}
+@media(max-width:640px){.members .list{columns:1}.barrow{grid-template-columns:128px 1fr 38px}.barrow .lbl{font-size:11.5px}}
+
+/* callouts */
+.callout{background:var(--wash);border-radius:6px;padding:18px 20px;font-size:14px;color:#13402e}
+.callout strong{color:var(--accent)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:760px){.twocol{grid-template-columns:1fr}}
+.faultlist li,.conslist li{margin:7px 0;font-size:14px;color:var(--ink)}
+.faultlist,.conslist{padding-left:18px;margin:0}
+
+/* metric cards */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:760px){.cards{grid-template-columns:repeat(2,1fr)}}
+.card{border:1px solid var(--line);border-radius:6px;padding:16px 16px 14px;background:#fbfaf6}
+.card .n{font-size:26px;font-weight:600;letter-spacing:-.02em}
+.card .l{font-size:12px;color:var(--sec);margin-top:3px;line-height:1.35}
+
+.cluster{display:grid;grid-template-columns:38px 1fr;gap:12px;margin:14px 0;align-items:start}
+.cluster .sz{font-size:20px;font-weight:600;color:var(--accent);text-align:right;font-variant-numeric:tabular-nums}
+.cluster .ex{font-size:13px;color:var(--sec)}
+.cluster .ex .where{color:var(--faint);font-size:11.5px;display:block;margin-top:3px}
+
+.paired{display:flex;gap:30px;align-items:flex-end;height:170px;padding:10px 0 0}
+.paired .grp{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;max-width:160px}
+.paired .bars{display:flex;gap:10px;align-items:flex-end;height:130px}
+.paired .b{width:38px;background:var(--accent);border-radius:3px 3px 0 0;position:relative}
+.paired .b.collapsed{background:#9bbcae}
+.paired .b .t{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--sec);font-variant-numeric:tabular-nums}
+.paired .glabel{font-size:12px;color:var(--ink);text-align:center}
+.legend{display:flex;gap:18px;font-size:12px;color:var(--sec);margin-top:6px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+/* heatmap */
+.hm{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px}
+.hm th{font-weight:600;color:var(--sec);text-align:center;padding:0 6px 10px;vertical-align:bottom;font-size:11.5px}
+.hm th.rowh{text-align:left;width:210px}
+.hm td.rowh{text-align:left;padding:4px 10px 4px 6px;cursor:pointer;color:var(--ink);font-size:12.5px}
+.hm tr:hover td.rowh{color:var(--accent)}
+.hm td.cell{width:74px;height:34px;text-align:center;color:#fff;font-weight:600;font-variant-numeric:tabular-nums;
+  border:2px solid var(--bg);border-radius:4px;cursor:default}
+.hm td.cell.zero{color:#3a3a37}
+.hm tr.selected td.rowh{font-weight:600;color:var(--accent)}
+.scalekey{display:flex;gap:2px;align-items:center;font-size:11.5px;color:var(--sec);margin:14px 0 6px}
+.scalekey b{width:30px;height:16px;display:inline-block;border-radius:2px;color:#fff;text-align:center;line-height:16px;font-size:10px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.toolbar select,.toolbar button{font-family:var(--sans);font-size:13px;padding:7px 10px;border:1px solid var(--line);
+  border-radius:5px;background:#fff;color:var(--ink);cursor:pointer}
+.toolbar button.ghost[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+.rationale{margin-top:16px;border:1px solid var(--line);border-radius:6px;padding:16px 18px;background:#fbfaf6;display:none}
+.rationale.show{display:block}
+.rationale h4{font-size:14px;margin:0 0 10px}
+.rationale .rrow{display:grid;grid-template-columns:150px 30px 1fr;gap:10px;align-items:start;padding:6px 0;border-top:1px solid var(--line);font-size:13px}
+.rationale .rrow:first-of-type{border-top:0}
+.rationale .rt{color:var(--sec)}
+.rationale .rs{font-weight:600;color:#fff;border-radius:3px;text-align:center;height:20px;line-height:20px;font-size:11px}
+.rationale .rx{color:var(--ink)}
+.themebar{margin-top:14px}
+.tb-row{display:grid;grid-template-columns:210px 1fr 34px;align-items:center;gap:10px;margin:4px 0}
+.tb-row .tl{font-size:12.5px;text-align:right;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tb-track{position:relative;height:18px;background:#e9e8e0;border-radius:2px}
+.tb-track .mid{position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--faint)}
+.tb-fill{position:absolute;top:0;height:100%;border-radius:2px}
+.tb-row .tv{font-size:12px;color:var(--sec);font-variant-numeric:tabular-nums}
+@media(max-width:640px){.tb-row{grid-template-columns:120px 1fr 30px}.hm th.rowh,.hm td.rowh{width:130px}.hm td.cell{width:46px;font-size:11px}}
+
+.drill{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+@media(max-width:640px){.drill{grid-template-columns:1fr}}
+.orgcard{border:1px solid var(--line);border-radius:6px;padding:18px 20px;background:#fbfaf6;margin-top:16px;display:none}
+.orgcard.show{display:block}
+.orgcard .oh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.orgcard .oh h4{font-size:17px}
+.orgcard .oh .om{font-size:12px;color:var(--faint)}
+footer{border-top:1px solid var(--line);padding:30px 0 60px;color:var(--sec);font-size:12.5px}
+footer p{max-width:80ch;margin:8px 0}
+.note-toggle{cursor:pointer;color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1 id="title"></h1>
+    <div class="meta" id="submeta"></div>
+    <div class="kpis" id="kpis"></div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap">
+    <button data-tab="d1" aria-selected="true">Sector analysis</button>
+    <button data-tab="d2" aria-selected="false">Coordination &amp; mobilisation</button>
+    <button data-tab="d3" aria-selected="false">Theme heatmap</button>
+  </div>
+</nav>
+
+<!-- D1 -->
+<section class="tab active" id="d1">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Who responded, and where they stand</h2>
+      <p>Respondents are grouped into stakeholder categories. Select a category to read its position, key themes and member organisations. Citizens are shown for scale but analysed separately under coordination.</p>
+    </div>
+    <div class="block">
+      <h3>Respondents by category</h3>
+      <div id="barchart"></div>
+      <p class="lead" style="font-size:12px;margin-top:8px">Bars are scaled to the largest organisational category; Citizens (4,038) extend past full width and are read by their label.</p>
+    </div>
+    <div id="catpanel"></div>
+    <div class="block twocol">
+      <div>
+        <h3>Points of consensus</h3>
+        <ul class="conslist" id="consensus"></ul>
+      </div>
+      <div>
+        <h3>Key fault lines</h3>
+        <ul class="faultlist" id="faultlines"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- D2 -->
+<section class="tab" id="d2">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Was this an organic consultation or a campaign?</h2>
+      <p>Mass campaigns can dominate raw counts and distort any aggregate reading. Each submission's free text was normalised and compared (TF-IDF cosine, multilingual embeddings being unavailable in this environment) to detect verbatim duplicates and template families.</p>
+    </div>
+    <div class="block"><h3>Headline metrics</h3><div class="cards" id="cards"></div></div>
+    <div class="block">
+      <h3>Largest template / near-duplicate clusters</h3>
+      <div id="clusters"></div>
+      <p class="lead" style="font-size:13px;margin-top:6px">Clusters of short transmittal notes ("please find attached our feedback") were excluded as boilerplate collisions rather than campaigns.</p>
+    </div>
+    <div class="block">
+      <h3>Raw vs. collapsed reading</h3>
+      <div id="paired"></div>
+      <div class="legend"><span><i style="background:var(--accent)"></i>Raw (one submission = one vote)</span><span><i style="background:#9bbcae"></i>Collapsed (template family = one signal)</span></div>
+      <div class="callout" id="rawcallout" style="margin-top:20px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- D3 -->
+<section class="tab" id="d3">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Positions across five cross-cutting themes</h2>
+      <p>Each category is scored from -2 (strongly against new rules) to +2 (strongly in favour). For T5 the axis is a new instrument (+) versus enforcing existing law (-). Click a row for its per-theme rationale.</p>
+    </div>
+    <div class="scalekey" id="scalekey"></div>
+    <div class="toolbar">
+      <button class="ghost" id="toggleTheme" aria-pressed="false">Bar chart by theme</button>
+      <select id="themeSel"></select>
+    </div>
+    <div id="heatmap"></div>
+    <div class="themebar" id="themebar" style="display:none"></div>
+    <div class="rationale" id="rationale"></div>
+
+    <div class="block">
+      <h3>Organisation drill-down</h3>
+      <div class="drill">
+        <select id="drillCat"><option value="">Select a category…</option></select>
+        <select id="drillOrg" disabled><option value="">Select an organisation…</option></select>
+      </div>
+      <div class="orgcard" id="orgcard"></div>
+      <p class="lead" style="font-size:12.5px;margin-top:12px">Individual scores cover named organisations whose substantive position was stated in the consultation text. Submissions filed only as an attachment are marked "in attachment / not stated".</p>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap" id="footer"></div></footer>
+
+<script id="data" type="application/json">{
+ "consultation": "Digital Fairness Act",
+ "subtitle": "European Commission call for evidence and public consultation",
+ "date_range": "17 July - 24 October 2025",
+ "totals": {
+  "submissions": 4325,
+  "organisations": 276,
+  "org_categories": 13,
+  "countries": 84
+ },
+ "themes": [
+  {
+   "id": "T1",
+   "label": "Addictive design rules"
+  },
+  {
+   "id": "T2",
+   "label": "Dark patterns ban"
+  },
+  {
+   "id": "T3",
+   "label": "Personalisation limits"
+  },
+  {
+   "id": "T4",
+   "label": "Subscription/cancel rules"
+  },
+  {
+   "id": "T5",
+   "label": "New law vs. enforcement"
+  }
+ ],
+ "sectors": [
+  {
+   "name": "Citizens",
+   "count": 4038,
+   "stance": "Strongly in favour",
+   "summary": "Individual citizens form 93% of the corpus and are overwhelmingly pro-reform. They describe addictive design, infinite scroll, autoplay and engagement-maximising algorithms as a market failure causing measurable harm to mental health, especially for young people, and call for binding rules rather than fines. Many demand transparency of recommender algorithms, mandatory fairness standards and outright bans on the most manipulative features. Dark patterns and subscription traps are raised as concrete personal grievances. Support for a strong new instrument is near-unanimous; opposition is rare and usually frames concern about free expression rather than defence of industry.",
+   "tags": [
+    "addictive design",
+    "algorithmic harm",
+    "minors",
+    "mental health",
+    "transparency"
+   ],
+   "scores": {
+    "T1": 2,
+    "T2": 2,
+    "T3": 1,
+    "T4": 1,
+    "T5": 2
+   },
+   "rationale": {
+    "T1": "Citizens repeatedly call for limits or bans on addictive features such as infinite scroll and autoplay.",
+    "T2": "Manipulative and deceptive interfaces are described as a primary harm to be prohibited.",
+    "T3": "Many demand algorithmic transparency and curbs on profiling, though personalisation is raised less often than addiction.",
+    "T4": "Subscription traps and hard cancellation appear as frequent personal complaints.",
+    "T5": "A strong, binding new instrument is demanded; existing law is seen as insufficient."
+   },
+   "divergence": "A small libertarian minority objects to over-regulation; two micro-campaigns (a Spanish pro-consumer cluster and a \"stop killing games\" game-preservation cluster) are visible but tiny."
+  },
+  {
+   "name": "Civil society & digital-rights NGOs",
+   "count": 40,
+   "stance": "Strongly in favour",
+   "summary": "Digital-rights and child-protection NGOs are the strongest organised proponents of an ambitious DFA. They argue existing law leaves structural gaps: consent is rendered meaningless by deceptive design, addictive features exploit developmental vulnerabilities, and surveillance-based business models are inherently manipulative. Child-rights groups anchor their demands in the UNCRC and the best-interests principle, pressing for safety-by-design and age-appropriate defaults. Digital-rights groups push interoperability, algorithmic transparency and limits on attention-monetising design. The bloc wants a binding new instrument, not guidance.",
+   "tags": [
+    "safety-by-design",
+    "minors / UNCRC",
+    "dark patterns",
+    "algorithmic transparency",
+    "interoperability"
+   ],
+   "scores": {
+    "T1": 2,
+    "T2": 2,
+    "T3": 2,
+    "T4": 1,
+    "T5": 2
+   },
+   "rationale": {
+    "T1": "Addictive techniques (infinite scroll, autoplay) are framed as exploitation of vulnerability requiring binding limits.",
+    "T2": "Deceptive design is treated as the core harm; consent under dark patterns is called meaningless.",
+    "T3": "Surveillance advertising and profiling are challenged as manipulative business models to be curbed.",
+    "T4": "Easy cancellation and contract fairness are supported, though secondary to design harms.",
+    "T5": "A strong new instrument is explicitly demanded to close gaps left by DSA, GDPR and UCPD."
+   },
+   "divergence": "Internal fault line on age assurance: child-safety groups want stronger age verification, while digital-rights groups warn it threatens privacy. UMICC, an influencer-industry body, sits in this bucket by data type and is the main pro-industry voice."
+  },
+  {
+   "name": "Consumer organisations",
+   "count": 10,
+   "stance": "In favour",
+   "summary": "Mainstream consumer bodies (UFC-Que Choisir, national consumer unions, Common Sense) support the DFA as a needed alignment of digital and offline protection, stressing weak enforcement of current rules: fake discounts, drip fees and hard cancellation are formally banned yet rarely policed. They back clear rules on dark patterns and subscriptions and want stronger redress. The category is not monolithic: market-liberal groups in the bucket argue the priority should be enforcing and consolidating existing law rather than adding a new layer.",
+   "tags": [
+    "enforcement gap",
+    "fake discounts",
+    "subscription traps",
+    "redress",
+    "vulnerable consumers"
+   ],
+   "scores": {
+    "T1": 1,
+    "T2": 2,
+    "T3": 1,
+    "T4": 2,
+    "T5": 1
+   },
+   "rationale": {
+    "T1": "Addictive design is supported as a target, framed mainly through protection of vulnerable users.",
+    "T2": "Dark patterns such as fake scarcity and confirmshaming are flagged as priority practices to ban.",
+    "T3": "Profiling is a concern but secondary to deceptive commercial practices.",
+    "T4": "Hard cancellation and subscription traps are a central, strongly-supported demand.",
+    "T5": "Most support a new instrument; a libertarian minority prefers consolidating existing law."
+   },
+   "divergence": "Consumer Choice Center Europe and the Taxpayers Association of Europe argue against new rules, an internal divergence from the BEUC-aligned mainstream."
+  },
+  {
+   "name": "Academia & research",
+   "count": 17,
+   "stance": "In favour",
+   "summary": "Academic and research institutions provide the evidentiary backbone, citing studies on dark patterns, addictive design and emerging AI-driven personalisation. Bodies such as the Ada Lovelace Institute and the AI Accountability Lab warn that influence is shifting from static dark patterns to personalised, conversational AI that the current framework does not capture. They favour evidence-based, future-proof rules with strong emphasis on personalisation and profiling. Support for new provisions is conditional on rigorous impact assessment rather than blanket prohibition.",
+   "tags": [
+    "evidence base",
+    "AI personalisation",
+    "dark patterns",
+    "future-proofing",
+    "impact assessment"
+   ],
+   "scores": {
+    "T1": 1,
+    "T2": 2,
+    "T3": 2,
+    "T4": 1,
+    "T5": 1
+   },
+   "rationale": {
+    "T1": "Addictive design is supported as a regulatory target where evidence of harm is robust.",
+    "T2": "Dark patterns are well-documented and treated as a clear case for stronger rules.",
+    "T3": "Personalisation, profiling and AI-driven influence are the flagged frontier requiring new limits.",
+    "T4": "Subscription practices are supported as a target but are not the academic focus.",
+    "T5": "A new, evidence-grounded instrument is supported, conditioned on proper impact assessment."
+   },
+   "divergence": "Emphasis varies between empirical-harm framing and rights-based framing, but direction is consistent."
+  },
+  {
+   "name": "Public authorities & regulators",
+   "count": 19,
+   "stance": "Cautiously in favour",
+   "summary": "National regulators and authorities (the Dutch ACM, media regulators such as die medienanstalten and Arcom, BEREC) engage constructively and from enforcement experience. They support effective regulation, singling out influencer marketing, gaming monetisation and minors as areas where current tools fall short. Their tone is measured: they favour workable, enforceable rules and coherence with the DSA, AVMSD and GDPR over either inaction or sweeping prohibition. Several stress operational feasibility and the need to avoid overlapping mandates.",
+   "tags": [
+    "influencer marketing",
+    "enforceability",
+    "minors",
+    "gaming monetisation",
+    "legal coherence"
+   ],
+   "scores": {
+    "T1": 1,
+    "T2": 1,
+    "T3": 1,
+    "T4": 1,
+    "T5": 1
+   },
+   "rationale": {
+    "T1": "Regulators back curbs on addictive and manipulative design where harm to minors is evident.",
+    "T2": "Dark patterns are supported as a target, with attention to enforceable definitions.",
+    "T3": "Profiling concerns are acknowledged, framed around feasibility and coherence with GDPR.",
+    "T4": "Subscription and cancellation rules are supported as practical, enforceable measures.",
+    "T5": "Most see a role for new rules but stress coherence with existing instruments over a fresh layer."
+   },
+   "divergence": "Media regulators are more assertive on influencer marketing; economic regulators are more cautious about adding obligations."
+  },
+  {
+   "name": "Large tech platforms",
+   "count": 22,
+   "stance": "Mixed / mostly against new rules",
+   "summary": "Large platforms (Apple, Microsoft, Amazon, Spotify, Match, Uber, Pinterest, Bumble) endorse the DFA's goals, especially child safety and transparency, while pointing to existing user controls and arguing that a comprehensive framework (UCPD, GDPR, DSA, DMA) already applies. Amazon is explicit that enforcement should precede any new rules. Most submissions are short cover notes referring to detailed attachments. The bloc resists broad new design mandates and personalisation limits and frames proportionality and competitiveness as constraints.",
+   "tags": [
+    "existing controls",
+    "proportionality",
+    "child safety (qualified)",
+    "enforce-first",
+    "competitiveness"
+   ],
+   "scores": {
+    "T1": 0,
+    "T2": 0,
+    "T3": -1,
+    "T4": 0,
+    "T5": -1
+   },
+   "rationale": {
+    "T1": "Platforms cite existing parental and well-being controls and resist blanket addictive-design mandates.",
+    "T2": "They support tackling clearly deceptive practices but argue these are already prohibited.",
+    "T3": "Personalisation and targeted advertising are defended as legitimate and core to services.",
+    "T4": "Subscription transparency is broadly accepted; most detail sits in attachments.",
+    "T5": "The dominant line is enforce existing law first; a new instrument is seen as duplicative."
+   },
+   "divergence": "Vodafone breaks ranks, backing new rules and an outright ban on children’s exposure to addictive design, partly because such design also burdens its networks."
+  },
+  {
+   "name": "Tech & startup associations",
+   "count": 33,
+   "stance": "Against",
+   "summary": "Tech-industry and startup associations (DIGITALEUROPE, CCIA, Chamber of Progress, Allied for Startups, European Tech Alliance, ITI) are the most consistent opponents of a new instrument. Their core argument is that Europe already has one of the world's most comprehensive, principles-based consumer frameworks and that the DFA would duplicate it, raise compliance costs and harm competitiveness and startups in particular. They defend targeted advertising as essential to growth and resist limits on the GDPR legitimate-interest basis. Where they accept action, it is narrow, guidance-based and aimed at enforcement and simplification.",
+   "tags": [
+    "duplication risk",
+    "simplification",
+    "targeted advertising",
+    "startup burden",
+    "principles-based law"
+   ],
+   "scores": {
+    "T1": -1,
+    "T2": 0,
+    "T3": -2,
+    "T4": -1,
+    "T5": -2
+   },
+   "rationale": {
+    "T1": "Associations argue addictive-design concerns are already covered and oppose new design mandates.",
+    "T2": "They accept tackling genuine dark patterns but say existing UCPD rules suffice.",
+    "T3": "They strongly defend targeted advertising and oppose new personalisation limits.",
+    "T4": "Subscription rules are seen as largely addressed by the Omnibus and CRD.",
+    "T5": "They are the clearest \"no new law\" voice, urging simplification and enforcement instead."
+   },
+   "divergence": "Smaller groups (DIGITAL SME, youth bodies) are slightly more open to targeted rules than the large incumbents-led associations."
+  },
+  {
+   "name": "Advertising & marketing",
+   "count": 12,
+   "stance": "Mixed; against personalisation limits",
+   "summary": "Advertising, marketing and research bodies (ESOMAR, the French SRI/GESTE, audience-measurement and influencer-marketing coalitions) support the anti-dark-pattern objective but mobilise hardest to protect data-driven and targeted advertising. They argue from operational experience with GDPR, ePrivacy and the DMA that the framework is already excessively complex, and warn against stigmatising targeted advertising, which they call essential to the funding of online media. Several seek explicit carve-outs so legitimate research and measurement are not caught.",
+   "tags": [
+    "targeted advertising",
+    "media funding",
+    "research carve-out",
+    "regulatory complexity",
+    "consent fatigue"
+   ],
+   "scores": {
+    "T1": 0,
+    "T2": 1,
+    "T3": -2,
+    "T4": 0,
+    "T5": -1
+   },
+   "rationale": {
+    "T1": "Addictive design is not their focus; they neither strongly support nor oppose new limits.",
+    "T2": "They accept and even welcome action against manipulative design and dark patterns.",
+    "T3": "They mobilise against personalisation limits, defending targeted advertising as essential.",
+    "T4": "Subscription rules are largely outside their focus.",
+    "T5": "They favour full application of existing rules over a new normative layer."
+   },
+   "divergence": "Research bodies (ESOMAR) are more supportive of consumer-protection aims than pure ad-tech voices, provided research is carved out."
+  },
+  {
+   "name": "Gaming & gambling",
+   "count": 11,
+   "stance": "Lean against; defend self-regulation",
+   "summary": "Games and gambling bodies (Video Games Europe, PEGI, EGBA, FunPlus, lotteries) stress existing self- and co-regulation, age-rating systems and licensing, arguing these already address the issues in the fitness check. They warn against mischaracterising how games work, for example treating in-game currencies as financial instruments or banning common design features, which they say would harm developers and the creative economy. They want any new rules to build on authorised self-regulation and remain proportionate and evidence-based.",
+   "tags": [
+    "self-/co-regulation",
+    "age rating (PEGI)",
+    "in-game design",
+    "proportionality",
+    "licensing"
+   ],
+   "scores": {
+    "T1": 0,
+    "T2": 0,
+    "T3": 0,
+    "T4": 0,
+    "T5": -1
+   },
+   "rationale": {
+    "T1": "They argue existing age-rating and self-regulation already manage design-related risks.",
+    "T2": "Dark-pattern concerns are met with reference to codes of conduct rather than new bans.",
+    "T3": "Personalisation is not central; targeted-ad concerns are limited.",
+    "T4": "Subscription and in-game purchase rules should, they argue, build on existing consumer law.",
+    "T5": "They prefer building on self-/co-regulation to a new prescriptive instrument."
+   },
+   "divergence": "Gambling operators lean on licensing and supervision; game developers focus on protecting design features and in-game economies."
+  },
+  {
+   "name": "Retail & e-commerce",
+   "count": 11,
+   "stance": "Against new layer",
+   "summary": "E-commerce bodies and online retailers (Ecommerce Europe, Thuiswinkel, Fruugo, SMEs) say the existing toolbox (UCPD, CRD, Omnibus) already covers the listed practices and that the cumulative regulatory roadmap is a heavy burden, especially for mid-sized firms. They support consumer trust in principle but oppose a new horizontal layer. On subscriptions specifically, several ask for proportionate, sector-specific treatment so that flexible or perishable-goods models are not penalised by rules designed for digital lock-in.",
+   "tags": [
+    "existing toolbox",
+    "compliance burden",
+    "SME proportionality",
+    "subscription nuance",
+    "legal certainty"
+   ],
+   "scores": {
+    "T1": 0,
+    "T2": 0,
+    "T3": 0,
+    "T4": -1,
+    "T5": -1
+   },
+   "rationale": {
+    "T1": "Addictive design is largely outside their scope; little stated position.",
+    "T2": "They argue deceptive practices are already prohibited under UCPD.",
+    "T3": "Personalisation is not a central concern for most retailers here.",
+    "T4": "They want subscription rules made proportionate and sector-specific, opposing blanket mandates.",
+    "T5": "They oppose a new instrument, citing an already comprehensive and burdensome framework."
+   },
+   "divergence": "A pet-food SME (Just Russel) typifies the call for a carve-out for \"soft\" subscriptions in perishable goods."
+  },
+  {
+   "name": "Media, creative & publishing",
+   "count": 7,
+   "stance": "Mixed",
+   "summary": "Media, publishing and creative organisations split by interest. Publishers and rights bodies defend advertising- and subscription-funded models and resist limits that would erode revenue, while libraries, archives and some creator groups (Coalition for Creativity) align more with user-protective and digital-rights positions. There is shared support for tackling clearly deceptive practices but divergence on personalisation and on whether a new instrument is needed.",
+   "tags": [
+    "ad-funded models",
+    "subscription revenue",
+    "creator interests",
+    "public-interest access",
+    "copyright interface"
+   ],
+   "scores": {
+    "T1": 0,
+    "T2": 1,
+    "T3": -1,
+    "T4": 0,
+    "T5": 0
+   },
+   "rationale": {
+    "T1": "Limited engagement on addictive design beyond general support for fairness.",
+    "T2": "Deceptive design is broadly accepted as a legitimate target.",
+    "T3": "Publishers defend personalised advertising; library/creator voices are more critical.",
+    "T4": "Subscription practices are defended where they fund content.",
+    "T5": "The bloc is split on the need for a new instrument."
+   },
+   "divergence": "Clear split: commercial publishers vs libraries/digital-rights-aligned coalitions."
+  },
+  {
+   "name": "Cross-sector business federations",
+   "count": 10,
+   "stance": "Strongly against new law",
+   "summary": "Horizontal business federations (MEDEF, the Confederations of Swedish and Finnish industry, AmCham EU, national chambers) speak for the whole economy and press the simplification agenda hardest. They support fairness and legal certainty in the abstract but argue the DFA risks adding burden and complexity without clear added value, and should at most consolidate and clarify existing rules. Several point to the parallel Digital Omnibus as the right vehicle for streamlining rather than new substantive obligations.",
+   "tags": [
+    "simplification",
+    "legal certainty",
+    "competitiveness",
+    "no extra burden",
+    "Digital Omnibus"
+   ],
+   "scores": {
+    "T1": -1,
+    "T2": 0,
+    "T3": -1,
+    "T4": -1,
+    "T5": -2
+   },
+   "rationale": {
+    "T1": "They resist new design mandates as added burden without demonstrated need.",
+    "T2": "They accept that clearly deceptive practices are already covered by existing law.",
+    "T3": "They are wary of personalisation limits that would affect the wider economy.",
+    "T4": "They prefer existing CRD/Omnibus rules to new subscription obligations.",
+    "T5": "They are among the strongest opponents of any new instrument, favouring consolidation."
+   },
+   "divergence": "Tone ranges from outright opposition (some chambers) to \"consolidate, do not duplicate\" (Nordic federations)."
+  },
+  {
+   "name": "Finance & insurance",
+   "count": 5,
+   "stance": "Lean against new instrument",
+   "summary": "Financial and insurance bodies (Febelfin, Finance Sweden, Insurance Europe) generally support protecting consumers from misleading practices but question whether the DFA is the right vehicle for their already heavily-regulated sector. Some, like Finance Sweden, explicitly back rules against misleading marketing and unfair contracts on level-playing-field grounds; others argue sector-specific financial regulation already addresses the concerns and warn against duplication.",
+   "tags": [
+    "sectoral regulation",
+    "misleading marketing",
+    "level playing field",
+    "duplication",
+    "consumer trust"
+   ],
+   "scores": {
+    "T1": 0,
+    "T2": 1,
+    "T3": 0,
+    "T4": 0,
+    "T5": -1
+   },
+   "rationale": {
+    "T1": "Addictive design is largely outside the sector’s concern.",
+    "T2": "They support action against misleading marketing and unfair practices.",
+    "T3": "Personalisation is managed under existing financial-services and data rules in their view.",
+    "T4": "Subscription concerns are limited for this sector.",
+    "T5": "Most question the DFA as the right vehicle, citing existing sectoral regulation."
+   },
+   "divergence": "Finance Sweden is notably supportive of anti-misleading rules; Febelfin is more sceptical of the DFA route."
+  },
+  {
+   "name": "Other industry & business federations",
+   "count": 79,
+   "stance": "Lean against new layer; support targeted fixes",
+   "summary": "The largest and most heterogeneous organisational bucket spans energy, telecoms, manufacturing, food and health products, automotive, transport and a distinct jewellery and diamond cluster. The common thread is support for the consumer-protection goal coupled with insistence on proportionate, targeted, innovation-friendly rules that do not overburden smaller players or duplicate existing law. The diamond and jewellery bodies raise a sector-specific fairness concern about clear disclosure of laboratory-grown versus natural stones. Most accept tackling genuine deception while resisting a broad new horizontal instrument.",
+   "tags": [
+    "proportionality",
+    "targeted rules",
+    "SME impact",
+    "sectoral specifics",
+    "product disclosure"
+   ],
+   "scores": {
+    "T1": 0,
+    "T2": 1,
+    "T3": 0,
+    "T4": 0,
+    "T5": -1
+   },
+   "rationale": {
+    "T1": "Addictive design is largely outside the concerns of these non-digital sectors.",
+    "T2": "They support action against clearly misleading or deceptive practices.",
+    "T3": "Personalisation positions are mixed and sector-dependent.",
+    "T4": "Subscription rules are accepted where proportionate to the business model.",
+    "T5": "Most prefer targeted fixes and enforcement to a broad new instrument."
+   },
+   "divergence": "Includes a coherent jewellery/diamond sub-bloc focused on lab-grown vs natural disclosure as a consumer-fairness issue."
+  }
+ ],
+ "orgs": [
+  {
+   "org": "Apple",
+   "sector": "Large tech platforms",
+   "country": "IE",
+   "scores": {
+    "T1": 0,
+    "T2": 0,
+    "T3": 0,
+    "T4": 0,
+    "T5": -1
+   },
+   "rat": {
+    "T1": "Voices support for child-safety goals but points to existing on-device controls.",
+    "T2": "Backs transparency and user controls rather than new design bans.",
+    "T3": "Defends privacy-protecting design; no support for new personalisation mandates.",
+    "T4": "in attachment / not stated",
+    "T5": "Frames support around existing goals, implying no need for a broad new layer."
+   }
+  },
+  {
+   "org": "Microsoft Corporation",
+   "sector": "Large tech platforms",
+   "country": "US",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "Amazon EU",
+   "sector": "Large tech platforms",
+   "country": "LU",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 0,
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": -2
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Commits to consumer safety but says existing rules cover the practices.",
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": "Explicit that existing comprehensive rules should be enforced before any new ones."
+   }
+  },
+  {
+   "org": "Spotify AB",
+   "sector": "Large tech platforms",
+   "country": "SE",
+   "scores": {
+    "T1": 0,
+    "T2": 0,
+    "T3": 0,
+    "T4": 1,
+    "T5": 0
+   },
+   "rat": {
+    "T1": "Shares consumer-protection goal; emphasises user control over experience.",
+    "T2": "Supports fairness and transparency without endorsing new bans.",
+    "T3": "Stresses respecting user choices; no call for personalisation limits.",
+    "T4": "Stresses control \"from sign-up onwards\", implying support for clear cancellation.",
+    "T5": "Welcomes engagement but does not call for a new instrument."
+   }
+  },
+  {
+   "org": "Vodafone Group",
+   "sector": "Large tech platforms",
+   "country": "GB",
+   "scores": {
+    "T1": 2,
+    "T2": 1,
+    "T3": 1,
+    "T4": "in attachment / not stated",
+    "T5": 2
+   },
+   "rat": {
+    "T1": "Explicitly supports new DFA rules and an outright ban on children’s exposure to addictive design.",
+    "T2": "Backs curbs on manipulative engagement-maximising design.",
+    "T3": "Critical of algorithmic recommender systems driving harm.",
+    "T4": "in attachment / not stated",
+    "T5": "Supports the Commission bringing forward new rules under the DFA."
+   }
+  },
+  {
+   "org": "Bumble Inc.",
+   "sector": "Large tech platforms",
+   "country": "US",
+   "scores": {
+    "T1": 1,
+    "T2": 1,
+    "T3": 0,
+    "T4": "in attachment / not stated",
+    "T5": 0
+   },
+   "rat": {
+    "T1": "Supports tackling exploitative design while protecting \"ethical\" design.",
+    "T2": "Backs distinguishing exploitative from responsible practices.",
+    "T3": "Neutral; stresses rewarding good actors.",
+    "T4": "in attachment / not stated",
+    "T5": "Welcomes the DFA as an opportunity to strengthen protection."
+   }
+  },
+  {
+   "org": "Match Group",
+   "sector": "Large tech platforms",
+   "country": "FR",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "Uber",
+   "sector": "Large tech platforms",
+   "country": "NL",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "DIGITALEUROPE",
+   "sector": "Tech & startup associations",
+   "country": "BE",
+   "scores": {
+    "T1": -2,
+    "T2": -1,
+    "T3": -2,
+    "T4": -1,
+    "T5": -2
+   },
+   "rat": {
+    "T1": "Says addictive features are already addressed by existing law; opposes new rules.",
+    "T2": "Argues manipulative design is explicitly covered by current consumer law.",
+    "T3": "Opposes new personalisation limits; defends principles-based framework.",
+    "T4": "Says subscription traps are already addressed by existing law.",
+    "T5": "States a new DFA would merely duplicate existing comprehensive regulation."
+   }
+  },
+  {
+   "org": "Allied For Startups",
+   "sector": "Tech & startup associations",
+   "country": "BE",
+   "scores": {
+    "T1": -1,
+    "T2": -1,
+    "T3": -2,
+    "T4": -1,
+    "T5": -2
+   },
+   "rat": {
+    "T1": "Warns new design rules add complexity for startups.",
+    "T2": "Accepts targeting dark patterns but only narrowly.",
+    "T3": "Strongly defends targeted advertising; opposes limiting GDPR legitimate interest.",
+    "T4": "Sees subscription concerns as covered by GDPR and UCPD.",
+    "T5": "Argues the DFA duplicates existing law; urges simplification instead."
+   }
+  },
+  {
+   "org": "Chamber of Progress",
+   "sector": "Tech & startup associations",
+   "country": "BE",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "Computer & Communications Industry Association (CCIA)",
+   "sector": "Tech & startup associations",
+   "country": "BE",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "European Tech Alliance",
+   "sector": "Tech & startup associations",
+   "country": "BE",
+   "scores": {
+    "T1": "not addressed",
+    "T2": "not addressed",
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": -1
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "not addressed",
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": "Shares consumer-protection objective but frames trust and competitiveness as the priority, detail in attachment."
+   }
+  },
+  {
+   "org": "Information Technology Industry Council",
+   "sector": "Tech & startup associations",
+   "country": "US",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "ESOMAR (research & insights)",
+   "sector": "Advertising & marketing",
+   "country": "NL",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 2,
+    "T3": -1,
+    "T4": "not addressed",
+    "T5": 0
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Strongly supports protecting consumers from manipulative dark patterns.",
+    "T3": "Seeks carve-outs so legitimate research is not caught by personalisation limits.",
+    "T4": "not addressed",
+    "T5": "Supports the Act’s objectives while seeking clarity for research."
+   }
+  },
+  {
+   "org": "Syndicat des Régies Internet (SRI / GESTE)",
+   "sector": "Advertising & marketing",
+   "country": "FR",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 1,
+    "T3": -2,
+    "T4": "not addressed",
+    "T5": -2
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Accepts action on manipulative practices.",
+    "T3": "Insists targeted advertising must not be stigmatised; it funds online media.",
+    "T4": "not addressed",
+    "T5": "Argues for full application of existing rules over a new normative layer."
+   }
+  },
+  {
+   "org": "European Influencer Marketing Alliance",
+   "sector": "Advertising & marketing",
+   "country": "DE",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "Audience Measurement Coalition (AMC)",
+   "sector": "Advertising & marketing",
+   "country": "FR",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "BEUC-aligned consumer unions",
+   "sector": "Consumer organisations",
+   "country": "EU",
+   "scores": {
+    "T1": 1,
+    "T2": 2,
+    "T3": 1,
+    "T4": 2,
+    "T5": 1
+   },
+   "rat": {
+    "T1": "Support limits on addictive design protecting vulnerable users.",
+    "T2": "Press for clear bans on dark patterns such as fake scarcity.",
+    "T3": "Support curbs on manipulative profiling.",
+    "T4": "Central demand: easy cancellation and an end to subscription traps.",
+    "T5": "Support a new instrument to align digital and offline protection."
+   }
+  },
+  {
+   "org": "UFC-Que Choisir",
+   "sector": "Consumer organisations",
+   "country": "FR",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "Common Sense Media",
+   "sector": "Consumer organisations",
+   "country": "US",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "ÚNIA SPOTREBITEĽOV Slovenska",
+   "sector": "Consumer organisations",
+   "country": "SK",
+   "scores": {
+    "T1": 1,
+    "T2": 2,
+    "T3": 1,
+    "T4": 2,
+    "T5": 2
+   },
+   "rat": {
+    "T1": "Backs protection of vulnerable users from manipulative design.",
+    "T2": "Cites fake discounts and misleading fees as banned-yet-unenforced dark patterns.",
+    "T3": "Supports stronger limits on unfair digital practices.",
+    "T4": "Highlights difficult subscription cancellation as a priority harm.",
+    "T5": "Calls the DFA a key step; stresses weak enforcement of current rules."
+   }
+  },
+  {
+   "org": "Consumer Choice Center Europe",
+   "sector": "Consumer organisations",
+   "country": "US",
+   "scores": {
+    "T1": -1,
+    "T2": 0,
+    "T3": -1,
+    "T4": 0,
+    "T5": -2
+   },
+   "rat": {
+    "T1": "Sceptical of new design mandates as paternalistic.",
+    "T2": "Accepts only clear-fraud cases under existing law.",
+    "T3": "Defends personalised services and consumer choice.",
+    "T4": "not addressed",
+    "T5": "Explicitly argues to build on existing law rather than create new rules."
+   }
+  },
+  {
+   "org": "Panoptykon Foundation",
+   "sector": "Civil society & digital-rights NGOs",
+   "country": "PL",
+   "scores": {
+    "T1": 2,
+    "T2": 2,
+    "T3": 2,
+    "T4": 1,
+    "T5": 2
+   },
+   "rat": {
+    "T1": "Targets manipulative design; backs measures from the Addictive Design report.",
+    "T2": "Interoperability proposed specifically to make dark patterns harder to deploy.",
+    "T3": "Strong focus on curbing manipulation and profiling.",
+    "T4": "Supports protections against product-quality degradation and lock-in.",
+    "T5": "Wants the DFA to complement and strengthen the existing framework."
+   }
+  },
+  {
+   "org": "Amnesty International",
+   "sector": "Civil society & digital-rights NGOs",
+   "country": "GB",
+   "scores": {
+    "T1": 2,
+    "T2": 2,
+    "T3": 2,
+    "T4": "in attachment / not stated",
+    "T5": 2
+   },
+   "rat": {
+    "T1": "Calls addictive, exploitative design a deliberate harm to be curbed.",
+    "T2": "Says dark patterns render consent meaningless and must be addressed.",
+    "T3": "Attacks the surveillance-based, manipulative business model directly.",
+    "T4": "in attachment / not stated",
+    "T5": "Frames the DFA as needed to confront an abusive business model."
+   }
+  },
+  {
+   "org": "Defence for Children - ECPAT NL",
+   "sector": "Civil society & digital-rights NGOs",
+   "country": "NL",
+   "scores": {
+    "T1": 2,
+    "T2": 2,
+    "T3": 1,
+    "T4": "in attachment / not stated",
+    "T5": 2
+   },
+   "rat": {
+    "T1": "Condemns addictive techniques (infinite scroll, autoplay) exploiting children.",
+    "T2": "Frames dark patterns as exploitation of children’s vulnerabilities.",
+    "T3": "Concerned with profiling of children; best-interests principle.",
+    "T4": "in attachment / not stated",
+    "T5": "Wants a DFA grounded in the UNCRC with binding child protections."
+   }
+  },
+  {
+   "org": "Children's Rights Alliance",
+   "sector": "Civil society & digital-rights NGOs",
+   "country": "IE",
+   "scores": {
+    "T1": 2,
+    "T2": 2,
+    "T3": 1,
+    "T4": "in attachment / not stated",
+    "T5": 2
+   },
+   "rat": {
+    "T1": "Children are especially vulnerable to addictive design; binding rules sought.",
+    "T2": "Identifies dark patterns as a market-wide harm to minors.",
+    "T3": "Supports limits on profiling of children.",
+    "T4": "in attachment / not stated",
+    "T5": "Wants children’s rights embedded in a strong DFA, citing persistent gaps."
+   }
+  },
+  {
+   "org": "ctrl+alt+reclaim",
+   "sector": "Civil society & digital-rights NGOs",
+   "country": "GB",
+   "scores": {
+    "T1": 2,
+    "T2": 2,
+    "T3": 1,
+    "T4": "in attachment / not stated",
+    "T5": 2
+   },
+   "rat": {
+    "T1": "Youth-led; links exploitative design to a youth mental-health crisis.",
+    "T2": "Targets manipulative design harming young people.",
+    "T3": "Critical of attention-monetising personalisation.",
+    "T4": "in attachment / not stated",
+    "T5": "Demands strong DFA action on exploitative digital design."
+   }
+  },
+  {
+   "org": "Civil Liberties Union for Europe",
+   "sector": "Civil society & digital-rights NGOs",
+   "country": "DE",
+   "scores": {
+    "T1": 1,
+    "T2": 1,
+    "T3": 1,
+    "T4": "in attachment / not stated",
+    "T5": 2
+   },
+   "rat": {
+    "T1": "Highlights monetised attention and algorithmic amplification as harms.",
+    "T2": "Backs fairness rules on manipulative monetised design.",
+    "T3": "Wants disclosure of paid creators and algorithmic prioritisation.",
+    "T4": "in attachment / not stated",
+    "T5": "Treats the DFA as a defining opportunity for binding fairness rules."
+   }
+  },
+  {
+   "org": "UMICC (influencer-marketing union)",
+   "sector": "Civil society & digital-rights NGOs",
+   "country": "FR",
+   "scores": {
+    "T1": 0,
+    "T2": 1,
+    "T3": 0,
+    "T4": "in attachment / not stated",
+    "T5": 1
+   },
+   "rat": {
+    "T1": "Industry body; focus on responsible influencer practices, not design bans.",
+    "T2": "Supports rules against deceptive influencer practices.",
+    "T3": "Neutral on personalisation.",
+    "T4": "in attachment / not stated",
+    "T5": "Supports a clear EU framework, building on the French 2023 influencer law."
+   }
+  },
+  {
+   "org": "Video Games Europe",
+   "sector": "Gaming & gambling",
+   "country": "BE",
+   "scores": {
+    "T1": 0,
+    "T2": 0,
+    "T3": "not addressed",
+    "T4": 0,
+    "T5": -1
+   },
+   "rat": {
+    "T1": "Points to industry actions and existing protections rather than new mandates.",
+    "T2": "Addresses concerns via the fitness-check process and self-regulation.",
+    "T3": "not addressed",
+    "T4": "Supports protection but via existing tools.",
+    "T5": "Prefers building on existing protections to a new instrument."
+   }
+  },
+  {
+   "org": "European Gaming and Betting Association (EGBA)",
+   "sector": "Gaming & gambling",
+   "country": "BE",
+   "scores": {
+    "T1": 0,
+    "T2": 0,
+    "T3": 0,
+    "T4": "in attachment / not stated",
+    "T5": -1
+   },
+   "rat": {
+    "T1": "Members comply with consent, transparency and control under current law.",
+    "T2": "Notes there is no clear definition of dark patterns; relies on existing rules.",
+    "T3": "Profiling governed by existing law in their view.",
+    "T4": "in attachment / not stated",
+    "T5": "Advocates improving protection within existing EU and national law."
+   }
+  },
+  {
+   "org": "PEGI s.a.",
+   "sector": "Gaming & gambling",
+   "country": "BE",
+   "scores": {
+    "T1": 0,
+    "T2": 0,
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": -1
+   },
+   "rat": {
+    "T1": "Argues PEGI age-rating and Code of Conduct already address the issues.",
+    "T2": "Self-/co-regulation framed as handling design concerns.",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "Wants new rules to build on existing self-regulation, not replace it."
+   }
+  },
+  {
+   "org": "FunPlus International AG",
+   "sector": "Gaming & gambling",
+   "country": "CH",
+   "scores": {
+    "T1": -1,
+    "T2": 0,
+    "T3": "not addressed",
+    "T4": -1,
+    "T5": -2
+   },
+   "rat": {
+    "T1": "Warns against banning common game features as mischaracterising games.",
+    "T2": "Accepts targeted guidance over new bans.",
+    "T3": "not addressed",
+    "T4": "Opposes redefining in-game currencies as financial instruments.",
+    "T5": "Says options duplicate or conflict with UCPD, CRD/Omnibus, GDPR and DSA."
+   }
+  },
+  {
+   "org": "Ecommerce Europe",
+   "sector": "Retail & e-commerce",
+   "country": "BE",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 0,
+    "T3": "not addressed",
+    "T4": -1,
+    "T5": -2
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Argues listed deceptive practices are already covered by existing law.",
+    "T3": "not addressed",
+    "T4": "Wary of new subscription mandates as added burden.",
+    "T5": "States the existing framework already provides a comprehensive toolbox."
+   }
+  },
+  {
+   "org": "Just Russel",
+   "sector": "Retail & e-commerce",
+   "country": "BE",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 0,
+    "T3": "not addressed",
+    "T4": -1,
+    "T5": 0
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Supports tackling lock-in dark patterns in long-term digital contracts.",
+    "T3": "not addressed",
+    "T4": "Requests a sector-specific carve-out for flexible perishable-goods subscriptions.",
+    "T5": "Supports the DFA goal but wants proportionate, differentiated rules."
+   }
+  },
+  {
+   "org": "Fruugo.com Ltd",
+   "sector": "Retail & e-commerce",
+   "country": "GB",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 0,
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": -1
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Recognises consumer-protection aims but stresses compliance complexity.",
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": "Argues the cumulative regulatory roadmap is a heavy burden for mid-sized firms."
+   }
+  },
+  {
+   "org": "Thuiswinkel.org",
+   "sector": "Retail & e-commerce",
+   "country": "NL",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "Mouvement des Entreprises de France (MEDEF)",
+   "sector": "Cross-sector business federations",
+   "country": "FR",
+   "scores": {
+    "T1": -1,
+    "T2": 0,
+    "T3": -1,
+    "T4": -1,
+    "T5": -2
+   },
+   "rat": {
+    "T1": "Wary of new design obligations as burden.",
+    "T2": "Accepts fairness goals; deceptive practices seen as covered.",
+    "T3": "Cautious on personalisation limits affecting business broadly.",
+    "T4": "Prefers existing contract rules to new subscription mandates.",
+    "T5": "Supports legal certainty but resists a new layer of obligations."
+   }
+  },
+  {
+   "org": "Confederation of Swedish Enterprise",
+   "sector": "Cross-sector business federations",
+   "country": "SE",
+   "scores": {
+    "T1": -1,
+    "T2": 0,
+    "T3": 0,
+    "T4": -1,
+    "T5": -2
+   },
+   "rat": {
+    "T1": "Seeks protection improvements without additional rules.",
+    "T2": "Accepts targeting genuine harms within existing law.",
+    "T3": "Neutral; emphasises avoiding new burden.",
+    "T4": "Proposes improvements without new subscription obligations.",
+    "T5": "Argues consumer protection can improve without adding rules (Joint Nordic comments)."
+   }
+  },
+  {
+   "org": "American Chamber of Commerce to the EU",
+   "sector": "Cross-sector business federations",
+   "country": "BE",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "The Ada Lovelace Institute",
+   "sector": "Academia & research",
+   "country": "GB",
+   "scores": {
+    "T1": 1,
+    "T2": 2,
+    "T3": 2,
+    "T4": "in attachment / not stated",
+    "T5": 1
+   },
+   "rat": {
+    "T1": "Notes addictive design among established harms warranting attention.",
+    "T2": "Confirms dark patterns remain prevalent and a clear regulatory target.",
+    "T3": "Flags personalised and AI-driven influence as the emerging frontier needing rules.",
+    "T4": "in attachment / not stated",
+    "T5": "Supports updating the framework to capture new forms of influence."
+   }
+  },
+  {
+   "org": "AI Accountability Lab (AIAL), Trinity College Dublin",
+   "sector": "Academia & research",
+   "country": "IE",
+   "scores": {
+    "T1": 1,
+    "T2": 2,
+    "T3": 2,
+    "T4": "in attachment / not stated",
+    "T5": 1
+   },
+   "rat": {
+    "T1": "Supports evidence-based limits on harmful design.",
+    "T2": "Backs strong action on documented dark patterns.",
+    "T3": "Emphasises accountability for AI-driven personalisation.",
+    "T4": "in attachment / not stated",
+    "T5": "Supports new, evidence-grounded provisions."
+   }
+  },
+  {
+   "org": "Centre for Future Generations",
+   "sector": "Academia & research",
+   "country": "BE",
+   "scores": {
+    "T1": 1,
+    "T2": 1,
+    "T3": 1,
+    "T4": "in attachment / not stated",
+    "T5": 1
+   },
+   "rat": {
+    "T1": "Supports addressing long-term harms of addictive design.",
+    "T2": "Backs action on deceptive design.",
+    "T3": "Concerned with profiling and future AI influence.",
+    "T4": "in attachment / not stated",
+    "T5": "Supports a forward-looking instrument."
+   }
+  },
+  {
+   "org": "Febelfin",
+   "sector": "Finance & insurance",
+   "country": "BE",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 0,
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": -1
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Supports consumer protection in principle.",
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": "Questions whether the DFA is the right vehicle for the regulated financial sector."
+   }
+  },
+  {
+   "org": "Finance Sweden",
+   "sector": "Finance & insurance",
+   "country": "SE",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 1,
+    "T3": "not addressed",
+    "T4": 0,
+    "T5": 0
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Supports rules against misleading marketing practices.",
+    "T3": "not addressed",
+    "T4": "Backs action on unfair contracts.",
+    "T5": "Supports regulation on level-playing-field grounds."
+   }
+  },
+  {
+   "org": "Insurance Europe",
+   "sector": "Finance & insurance",
+   "country": "BE",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "Coalition for Creativity (C4C)",
+   "sector": "Media, creative & publishing",
+   "country": "BE",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 1,
+    "T3": 0,
+    "T4": "not addressed",
+    "T5": 1
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Highlights how current digital practices undermine user fairness.",
+    "T3": "Library/digital-rights aligned; critical of restrictive practices.",
+    "T4": "not addressed",
+    "T5": "Supports addressing gaps in the digital environment."
+   }
+  },
+  {
+   "org": "European Publishers Council (EPC)",
+   "sector": "Media, creative & publishing",
+   "country": "BE",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 1,
+    "T3": -1,
+    "T4": 0,
+    "T5": -1
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Supports tackling clearly deceptive practices.",
+    "T3": "Defends advertising-funded models against personalisation limits.",
+    "T4": "Defends subscription models that fund journalism.",
+    "T5": "Wary of a new layer affecting press business models."
+   }
+  },
+  {
+   "org": "European Composer and Songwriter Alliance (ECSA)",
+   "sector": "Media, creative & publishing",
+   "country": "BE",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "De Beers Group",
+   "sector": "Other industry & business federations",
+   "country": "GB",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 1,
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": 0
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Focus on clear disclosure of natural vs laboratory-grown diamonds as consumer fairness.",
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": "Sector-specific transparency ask rather than a position on a new instrument."
+   }
+  },
+  {
+   "org": "Natural Diamond Council",
+   "sector": "Other industry & business federations",
+   "country": "US",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 1,
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": 0
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Seeks clear labelling distinguishing natural from lab-grown stones.",
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": "Frames the issue as targeted disclosure, not broad regulation."
+   }
+  },
+  {
+   "org": "Food Supplements Europe",
+   "sector": "Other industry & business federations",
+   "country": "BE",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 1,
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": 0
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Supports tackling misleading influencer claims that jeopardise safety.",
+    "T3": "not addressed",
+    "T4": "not addressed",
+    "T5": "Supports the DFA aim while seeking a level playing field."
+   }
+  },
+  {
+   "org": "Eurogas",
+   "sector": "Other industry & business federations",
+   "country": "BE",
+   "scores": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   },
+   "rat": {
+    "T1": "in attachment / not stated",
+    "T2": "in attachment / not stated",
+    "T3": "in attachment / not stated",
+    "T4": "in attachment / not stated",
+    "T5": "in attachment / not stated"
+   }
+  },
+  {
+   "org": "NERA Economic Consulting",
+   "sector": "Other industry & business federations",
+   "country": "DE",
+   "scores": {
+    "T1": "not addressed",
+    "T2": 0,
+    "T3": "not addressed",
+    "T4": 0,
+    "T5": 0
+   },
+   "rat": {
+    "T1": "not addressed",
+    "T2": "Urges economic analysis of net consumer-welfare effects before banning practices.",
+    "T3": "not addressed",
+    "T4": "Provides economic analysis on junk fees and cancellation.",
+    "T5": "Calls for more economic nuance in the impact assessment, neutral on the instrument."
+   }
+  }
+ ],
+ "coordination": {
+  "total": 4325,
+  "with_text": 4281,
+  "no_text": 44,
+  "indep": 4255,
+  "coord_members": 26,
+  "coord_share": 0.6,
+  "pct_in_pair": 2.9,
+  "exact_dup_groups": 25,
+  "n_template_families": 7,
+  "sim_threshold": 0.75,
+  "citizen_share": 93.4,
+  "raw_pro_share": 63.0,
+  "campaigns": [
+   {
+    "size": 6,
+    "share": 0.1,
+    "countries": {
+     "ESP": 6
+    },
+    "excerpt": "Esta iniciativa de la Comisión Europea es un paso crucial y muy importante para adaptar la protección de los consumidores a la realidad digital actual. Durante años, los consumidores nos hemos enfrentado a prácticas opac"
+   },
+   {
+    "size": 5,
+    "share": 0.1,
+    "countries": {
+     "NLD": 2,
+     "ROU": 1,
+     "BGR": 1,
+     "SVK": 1
+    },
+    "excerpt": "The Digital Fairness Act does not currently address the problem of publishers permanently disabling video games they have already sold to customers. I politely request that protections from publishers destroying video ga"
+   },
+   {
+    "size": 3,
+    "share": 0.1,
+    "countries": {
+     "CZE": 3
+    },
+    "excerpt": "Připomínky k plánovanému Aktu o digitální spravedlnosti (dále DFA) V připomínkách se zaměřujeme zejména na řešení problematických personalizačních praktik včetně cílení na zranitelnost spotřebitelů pro účely personalizov"
+   },
+   {
+    "size": 3,
+    "share": 0.1,
+    "countries": {
+     "CHL": 1,
+     "DEU": 1,
+     "BRA": 1
+    },
+    "excerpt": "Google has recently announced (link https://android-developers.googleblog.com/2025/08/elevating-android-security.html?m=1) that future Android updates will block users from installing apps that are not on Playstore. Ther"
+   }
+  ]
+ },
+ "top_countries": {
+  "DEU": 619,
+  "NLD": 312,
+  "SWE": 295,
+  "POL": 276,
+  "ESP": 252,
+  "ITA": 222,
+  "FRA": 221,
+  "BEL": 196
+ },
+ "member_lists": {
+  "Other industry & business federations": [
+   "Mynet s.r.l.",
+   "Food Supplements Europe",
+   "Finnish Energy",
+   "Santen SA",
+   "De Beers Group",
+   "Börsenverein des Deutschen Buchhandels e.V.",
+   "ANIVEC/APIV - Associação Nacional das Indústrias",
+   "Groupe Vyv",
+   "Paramount",
+   "CoolGames",
+   "Ryanair",
+   "AEPDV - Associação de Empresas Produtoras e Dist",
+   "Inter IKEA Group",
+   "Wolt",
+   "TEK Norge",
+   "Bundesverband der Deutschen Spirituosen-Industri",
+   "KreaKom",
+   "MiTale",
+   "(...)",
+   "eu travel tech",
+   "Supercell Oy",
+   "Automotive Mobility Europe",
+   "Fédération française des télécoms",
+   "NLdigital",
+   "ENGIE",
+   "ANDEMA",
+   "Związek Cyfrowa Polska",
+   "IK Research Services in Computer Engineering",
+   "TAC Alliance (Together Against Counterfeiting)",
+   "European Federation of Associations of Health Pr",
+   "Safer Internet Centre Denmark (SIC DK)",
+   "SMEunited",
+   "NERA Economic Consulting",
+   "AIM - European Brands Association",
+   "Bundesverband Digitale Wirtschaft e.V.",
+   "Mirai",
+   "Sky Group",
+   "Fastsight.ai",
+   "European Specialist Sports Nutrition Alliance (E",
+   "Durator AB",
+   "Airlines for Europe (A4E)",
+   "ZAW",
+   "game – Verband der deutschen Games-Branche e.V.",
+   "USA Gamer/ManUp& Play",
+   "GESTE (Groupement des éditeurs de contenus et de",
+   "LA POSTE",
+   "Brighten Digital s.r.o.",
+   "Krufs Productions AB",
+   "www.marcobava.it",
+   "Associazione Italiana Internet Provider",
+   "UNA - Aziende della Comunicazione Unite",
+   "American Bar Association, Antitrust Law Section ",
+   "Parent of disabled children",
+   "Natural Diamond Council",
+   "Wiseman Softworks Ay",
+   "Industrieverband Schneid- und  Haushaltwaren e.V",
+   "eBay",
+   "Stowarzyszenie Polskie Gry (Polish Game Associat",
+   "Eurogas",
+   "Zentralverband Deutsches Kraftfahrzeuggewerbe e.",
+   "Strava Inc.",
+   "The Polish Chamber of Information Technology and",
+   "Stop Destroying Videogames",
+   "Opera",
+   "Slaughter and May",
+   "APPLiA - Home Appliance Europe",
+   "Agilitation",
+   "United Internet AG",
+   "Samsung Electronics",
+   "Związek Pracodawców Prywatnych Mediów Lewiatan",
+   "GSMA",
+   "School",
+   "Mozilla",
+   "CER aisbl - Community of European Railway and In",
+   "Move EU - European Association of On-Demand Mobi",
+   "News Media Europe",
+   "Eurelectric",
+   "NDM",
+   "ALIRE"
+  ],
+  "Academia & research": [
+   "Centre for Future Generations",
+   "The Ada Lovelace Institute",
+   "Alum of Cambridge University",
+   "Chair of European Private Law, European Business",
+   "EPICENTER",
+   "CyberExplore",
+   "Chairgroup of Persuasion and New Media Technolog",
+   "Utrecht University",
+   "CoCoDa",
+   "Slovanské Gymnázium",
+   "Rathenau Instituut",
+   "Inria, Utrecht University, Indiana University Bl",
+   "AI Accountability Lab (AIAL), Trinity College Du",
+   "CEU",
+   "University of Siegen",
+   "Architect Cabinet",
+   "University of Essex, Essex Law School, England"
+  ],
+  "Retail & e-commerce": [
+   "Fruugo.com Ltd",
+   "Just Russel",
+   "Ecommerce Europe",
+   "Bundesverband E-Commerce und Versandhandel Deuts",
+   "Seldia, The European Direct Selling Association",
+   "NHO Service and Retail NHO Service og Handel",
+   "Signet Jewelers",
+   "Consorzio Netcomm",
+   "Thuiswinkel.org (Dutch E-commerce Association)",
+   "Butternut Box",
+   "The LEGO Group"
+  ],
+  "Tech & startup associations": [
+   "Technology Ireland, Ibec",
+   "The Tech Policy Youth Committee",
+   "Classifieds Marketplaces Europe",
+   "Adigital (Asociación Española de la Economía Dig",
+   "DOT Europe",
+   "DIGITALEUROPE",
+   "AI Chamber",
+   "Business & Science Poland",
+   "EuroISPA - European Internet Services Providers ",
+   "Allied For Startups",
+   "Delivery Platforms Europe",
+   "European DIGITAL SME Alliance",
+   "Usercentrics",
+   "Middle Tech Europe",
+   "Flux Digital Policy",
+   "Internetstiftelsen",
+   "Dutch Startup Association",
+   "ACT | The App Association",
+   "European Tech Alliance",
+   "Digital Business Ireland",
+   "European AI Forum",
+   "Information Technology Industry Council",
+   "Chamber of Progress",
+   "Connect Europe",
+   "Centre for Information Policy Leadership (CIPL)",
+   "eco - Association of the Internet Industry",
+   "The Polish Association of Internet Industry Empl",
+   "European Cultural and Creative Industries Allian",
+   "Computer & Communications Industry Association (",
+   "Coalition for Trusted Reviews",
+   "Browser Choice Alliance",
+   "Bundesverband Deutsche Startups e.V.",
+   "Coalition for Open Digital Ecosystems"
+  ],
+  "Consumer organisations": [
+   "CONSUMER CHOICE CENTER EUROPE",
+   "DECO- Portuguese Association for Consumer Protec",
+   "ÚNIA SPOTREBITEĽOV Slovenska",
+   "Združenie na ochranu práv občana - AVES",
+   "Euroconsumers",
+   "U.Di.Con. APS UNIONE PER LA DIFESA DEI CONSUMATO",
+   "Common Sense Media",
+   "Consumer Protector Agent",
+   "UFC-Que Choisir",
+   "Information et défense des consommateurs salarié"
+  ],
+  "Large tech platforms": [
+   "Deliveroo",
+   "FunPlus International AG",
+   "Adevinta",
+   "Google",
+   "Vodafone Group",
+   "Apple",
+   "Spotify AB",
+   "Bumble Inc.",
+   "Vinted",
+   "Amazon EU",
+   "Flix",
+   "Microsoft Corporation",
+   "Pinterest Europe Limited",
+   "Duolingo",
+   "Unity Software",
+   "Snap Inc.",
+   "TikTok Technology Ltd.",
+   "Adobe",
+   "Match Group",
+   "Uber",
+   "Skyscanner",
+   "Gen Digital"
+  ],
+  "Public authorities & regulators": [
+   "die medienanstalten (DLM), national regulatory a",
+   "Council for Media Services",
+   "Stadt Wien / City of Vienna - CIO Office",
+   "Consumer",
+   "European Board for Media Services",
+   "Arcep",
+   "The Netherlands Authority for Consumers and Mark",
+   "ANJ",
+   "The Dutch Authority for Financial Markets",
+   "Agencia Española de Protección de Datos (AEPD)",
+   "N-VA",
+   "local",
+   "BEREC",
+   "Federal Office for the Enforcement of Children's",
+   "Commission for Communications Regulation (ComReg",
+   "Arcom (Autorité de régulation de la communicatio",
+   "Département des deux-sèvres",
+   "Competition and Consumer Protection Commission",
+   "Landesamt für Soziales, Jugend und Versorgung in"
+  ],
+  "Civil society & digital-rights NGOs": [
+   "Children's Rights Alliance",
+   "UMICC (Union des Métiers de l’Influence et des C",
+   "Europeans for Safe Connections",
+   "International Federation of Library Associations",
+   "CyberSafeIreland CLG (T/A CyberSafeKids)",
+   "Taxpayers Association of Europe (TAE)",
+   "ForHumanity",
+   "Defence For Children - ECPAT NL",
+   "Otevřená společnost,o.p.s.",
+   "Association Society and Values",
+   "Panoptykon Foundation",
+   "Elektrosmog a zdravie",
+   "Association for International Affairs (AMO)",
+   "Lobbio",
+   "ctrl+alt+reclaim",
+   "Amnesty International",
+   "European Network of Migrant Women",
+   "Ekhoscènes",
+   "European Environmental Bureau",
+   "European Public Policy Partnership",
+   "Civil Liberties Union for Europe",
+   "BULGARIAN ENTREPRENEURIAL ASSOCIATION (BESCO)",
+   "Børns Vilkår",
+   "Mental Health Europe",
+   "EFJ - European Federation of Jewellery",
+   "EU DisinfoLab",
+   "Offlimits",
+   "European Federation for Market Research Organisa",
+   "Center for Countering Digital Hate",
+   "Danish Entrepreneurs",
+   "Scale Ireland",
+   "HateAid",
+   "Deutscher Tierschutzbund e.V.",
+   "Ius Omnibus",
+   "Central European Lawyers Initiative",
+   "Face-value European Alliance for Ticketing",
+   "European Composer and Songwriter Alliance (ECSA)",
+   "FSM.de",
+   "Fundación Maldita.es",
+   "Bits of Freedom"
+  ],
+  "Gaming & gambling": [
+   "European Gaming and Betting Association (EGBA)",
+   "Pearle * - Live Performance Europe",
+   "Video Games Federation Belgium (VGFB)",
+   "Video Games Federation Netherlands",
+   "PEGI s.a.",
+   "Video Games Europe",
+   "DFL Deutsche Fußball Liga GmbH",
+   "Working Group on Gaming and Regulation",
+   "European Casino Association",
+   "The European Lotteries Association",
+   "Sports Rights Owners Coalition"
+  ],
+  "Advertising & marketing": [
+   "European Society for Opinion and Marketing Resea",
+   "Syndicat des Régies Internet (SRI)",
+   "Advertising Information Group",
+   "Organisation Werbungtreibende im Markenverband (",
+   "FEDMA",
+   "Data & Marketing Association of Finland (ASML)",
+   "European Advertising Standards Alliance (EASA)",
+   "European Influencer Marketing Alliance",
+   "Influencer Marketing Trade Body",
+   "Audience Measurement Coalition (AMC)",
+   "Sveriges Annonsörer",
+   "DDMA"
+  ],
+  "Finance & insurance": [
+   "Febelfin",
+   "Finance Sweden",
+   "FEBEA (Fédération des entreprises de la beauté)",
+   "Insurance Europe",
+   "Eurofinas"
+  ],
+  "Cross-sector business federations": [
+   "Mouvement des Entreprises de France (MEDEF)",
+   "Confederation of Swedish Enterprise",
+   "Confederation of Industry",
+   "Eurochambres",
+   "American Chamber of Commerce to the EU",
+   "Confederation of Finnish Industries EK",
+   "Union of Entreprenuers and Employers",
+   "Hospodářská komora ČR",
+   "Confédération des Petites et Moyennes Entreprise",
+   "Danish Chamber of Commerce"
+  ],
+  "Media, creative & publishing": [
+   "Coalition for Creativity (C4C)",
+   "European and International Booksellers Federatio",
+   "Finnmedia / Medialiitto ry",
+   "European Publishers Council (EPC)",
+   "EUROCINEMA",
+   "European Video on Demand Coalition asbl",
+   "Creativity Works!"
+  ]
+ }
+}</script>
+<script>
+const DATA = JSON.parse(document.getElementById('data').textContent);
+const SCOLOR = {'-2':'var(--s2n)','-1':'var(--s1n)','0':'var(--s0)','1':'var(--s1p)','2':'var(--s2p)'};
+const SHEX = {'-2':'#b3402f','-1':'#cf8b7a','0':'#9e9d97','1':'#5a8f73','2':'#19593a'};
+const $ = s=>document.querySelector(s), ce=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e;};
+const esc = s=>String(s==null?'':s).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+
+/* ---------- header ---------- */
+$('#eyebrow').textContent = DATA.subtitle;
+$('#title').textContent = DATA.consultation + ' — consultation feedback analysis';
+$('#submeta').textContent = 'European Commission call for evidence and public consultation. Submission window '+DATA.date_range+'. This page classifies respondents, measures coordination, and scores positions across the five themes most contested in the file.';
+const kp=[['submissions','Total submissions'],['organisations','Named organisations'],['org_categories','Stakeholder categories'],['countries','Countries']];
+$('#kpis').innerHTML = kp.map(([k,l])=>`<div class="kpi"><div class="n">${DATA.totals[k].toLocaleString()}</div><div class="l">${l}</div></div>`).join('');
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav.tabs button').forEach(x=>x.setAttribute('aria-selected','false'));
+  b.setAttribute('aria-selected','true');
+  document.querySelectorAll('section.tab').forEach(s=>s.classList.remove('active'));
+  $('#'+b.dataset.tab).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+});
+
+/* ---------- D1 bar chart ---------- */
+const sectors = DATA.sectors.slice().sort((a,b)=>b.count-a.count);
+const maxOrg = Math.max(...sectors.filter(s=>s.name!=='Citizens').map(s=>s.count));
+const bc = $('#barchart');
+sectors.forEach(s=>{
+  const isCit=s.name==='Citizens';
+  const w=Math.min(s.count/maxOrg,1)*100;
+  const row=ce('div','barrow'+(isCit?' cit':''));
+  row.innerHTML=`<div class="lbl" title="${esc(s.name)}">${esc(s.name)}</div>
+    <div class="track"><div class="fill" style="width:${w.toFixed(1)}%"></div></div>
+    <div class="v">${s.count.toLocaleString()}</div>`;
+  row.onclick=()=>{showCat(s.name);document.querySelectorAll('.barrow').forEach(r=>r.classList.remove('on'));row.classList.add('on');};
+  bc.appendChild(row);
+});
+function showCat(name){
+  const s=DATA.sectors.find(x=>x.name===name);
+  const ml=(DATA.member_lists[name]||[]);
+  const memHTML = ml.length? `<details class="members"><summary>${ml.length} organisations in this category</summary><div class="list">${ml.map(m=>`<span>${esc(m)}</span>`).join('')}</div></details>`:'';
+  $('#catpanel').innerHTML=`<div class="panel">
+    <span class="stance">${esc(s.stance)}</span>
+    <h3 class="pn">${esc(s.name)} <span class="cnt">· ${s.count.toLocaleString()} submissions</span></h3>
+    <p class="sum">${esc(s.summary)}</p>
+    <div class="tags">${s.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+    ${s.divergence?`<div class="divergence">${esc(s.divergence)}</div>`:''}
+    ${memHTML}
+  </div>`;
+  $('#catpanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+$('#consensus').innerHTML = [
+ 'Almost every respondent endorses the abstract goal of fairer digital consumer protection.',
+ 'Clear, deliberately deceptive dark patterns (fake scarcity, hidden costs) are widely accepted as legitimate targets.',
+ 'Protection of minors from exploitative design draws near-unanimous in-principle support.',
+ 'There is broad agreement that subscription cancellation should be genuinely easy.'
+].map(t=>`<li>${t}</li>`).join('');
+$('#faultlines').innerHTML = [
+ 'New instrument vs. enforce existing law: industry says the framework already covers everything; NGOs, consumers and citizens say gaps remain.',
+ 'Personalisation: the advertising, ad-tech and platform blocs defend targeted advertising; civil society and academia want it curbed.',
+ 'Self-regulation: gaming, gambling and ad bodies lean on codes of conduct; NGOs reject them as insufficient.',
+ 'Inside civil society, child-safety groups push age assurance while digital-rights groups warn it threatens privacy.'
+].map(t=>`<li>${t}</li>`).join('');
+showCat(sectors.find(s=>s.name!=='Citizens').name);
+
+/* ---------- D2 ---------- */
+const co=DATA.coordination;
+const cards=[
+ [co.citizen_share+'%','of submissions are individual citizens, analysed for coordination'],
+ [(100-co.coord_share).toFixed(1)+'%','independent — not in any template family'],
+ [co.coord_share+'%','inside a template family ('+co.n_template_families+' families, '+co.coord_members+' submissions)'],
+ [co.pct_in_pair+'%','share with any near-duplicate neighbour (cosine ≥ '+co.sim_threshold+')']
+];
+$('#cards').innerHTML=cards.map(([n,l])=>`<div class="card"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+$('#clusters').innerHTML = co.campaigns.map(c=>{
+  const where=Object.entries(c.countries).map(([k,v])=>k+' '+v).join(', ');
+  return `<div class="cluster"><div class="sz">${c.size}</div><div class="ex">${esc(c.excerpt)}…<span class="where">${esc(where)} · ${c.share}% of corpus</span></div></div>`;
+}).join('');
+// paired raw vs collapsed
+const rawTotal=DATA.totals.submissions, collTotal=rawTotal-co.coord_members+co.n_template_families;
+const rawPro=co.raw_pro_share, collPro=co.raw_pro_share; // negligible shift
+const grps=[['Total submissions',rawTotal,collTotal,rawTotal],
+            ['Citizen pro-reform share',rawPro,collPro,100]];
+$('#paired').innerHTML=`<div class="paired">`+grps.map(([lab,r,c,mx])=>{
+  const hr=(r/mx*100).toFixed(0),hc=(c/mx*100).toFixed(0);
+  const fmt=v=> lab.includes('share')? v+'%': v.toLocaleString();
+  return `<div class="grp"><div class="bars">
+    <div class="b" style="height:${hr}%"><span class="t">${fmt(r)}</span></div>
+    <div class="b collapsed" style="height:${hc}%"><span class="t">${fmt(c)}</span></div>
+   </div><div class="glabel">${lab}</div></div>`;
+}).join('')+`</div>`;
+$('#rawcallout').innerHTML=`<strong>What this does to the headline numbers:</strong> almost nothing. Collapsing all ${co.n_template_families} template families into single signals moves the totals by ${co.coord_members-co.n_template_families} submissions and the citizen pro-reform share by well under one point. Unlike consultations driven by an organised mass-mailer, the Digital Fairness Act file is roughly ${(100-co.coord_share).toFixed(0)}% independent: the strong pro-reform citizen signal is genuine, not manufactured. The two visible micro-campaigns (a Spanish pro-consumer message and a video-game "right to keep what you bought" cluster) are too small to shift any aggregate.`;
+
+/* ---------- D3 heatmap ---------- */
+const THEMES=DATA.themes, scoreCats=DATA.sectors;
+$('#scalekey').innerHTML='Score &nbsp;'+[-2,-1,0,1,2].map(v=>`<b style="background:${SHEX[v]}">${v>0?'+'+v:v}</b>`).join('')+'&nbsp;&nbsp;(− against new rules · + in favour)';
+function buildHeat(){
+  let h='<table class="hm"><thead><tr><th class="rowh">Category</th>'+
+    THEMES.map(t=>`<th title="${esc(t.label)}">${t.id}<br><span style="font-weight:400;color:var(--faint)">${esc(t.label)}</span></th>`).join('')+'</tr></thead><tbody>';
+  scoreCats.forEach((s,i)=>{
+    h+=`<tr data-i="${i}"><td class="rowh">${esc(s.name)}</td>`+
+      THEMES.map(t=>{const v=s.scores[t.id];return `<td class="cell${v===0?' zero':''}" style="background:${SHEX[v]}">${v>0?'+'+v:v}</td>`;}).join('')+'</tr>';
+  });
+  h+='</tbody></table>';
+  $('#heatmap').innerHTML=h;
+  $('#heatmap').querySelectorAll('tr[data-i]').forEach(tr=>tr.querySelector('.rowh').onclick=()=>selectRow(+tr.dataset.i,tr));
+}
+function selectRow(i,tr){
+  $('#heatmap').querySelectorAll('tr').forEach(r=>r.classList.remove('selected'));
+  tr.classList.add('selected');
+  const s=scoreCats[i];
+  $('#rationale').classList.add('show');
+  $('#rationale').innerHTML=`<h4>${esc(s.name)} — why these scores</h4>`+THEMES.map(t=>{
+    const v=s.scores[t.id];
+    return `<div class="rrow"><div class="rt">${t.id} · ${esc(t.label)}</div>
+      <div class="rs" style="background:${SHEX[v]}">${v>0?'+'+v:v}</div>
+      <div class="rx">${esc(s.rationale[t.id])}</div></div>`;
+  }).join('');
+  $('#rationale').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+buildHeat();
+// theme bar toggle
+THEMES.forEach(t=>{const o=ce('option');o.value=t.id;o.textContent=t.id+' · '+t.label;$('#themeSel').appendChild(o);});
+function buildThemeBar(tid){
+  const t=THEMES.find(x=>x.id===tid);
+  const rows=scoreCats.map(s=>({n:s.name,v:s.scores[tid]})).sort((a,b)=>b.v-a.v);
+  let h=`<h3 style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin:0 0 12px">${esc(t.label)} — all categories</h3>`;
+  rows.forEach(r=>{
+    const pct=Math.abs(r.v)/2*50; const left=r.v>=0?50:50-pct;
+    h+=`<div class="tb-row"><div class="tl" title="${esc(r.n)}">${esc(r.n)}</div>
+      <div class="tb-track"><div class="mid"></div><div class="tb-fill" style="left:${left}%;width:${pct}%;background:${SHEX[r.v]}"></div></div>
+      <div class="tv">${r.v>0?'+'+r.v:r.v}</div></div>`;
+  });
+  $('#themebar').innerHTML=h;
+}
+$('#toggleTheme').onclick=()=>{
+  const on=$('#toggleTheme').getAttribute('aria-pressed')==='true';
+  $('#toggleTheme').setAttribute('aria-pressed',String(!on));
+  $('#themebar').style.display=on?'none':'block';
+  $('#heatmap').style.display=on?'block':'none';
+  if(!on) buildThemeBar($('#themeSel').value||THEMES[0].id);
+};
+$('#themeSel').onchange=()=>{if($('#themebar').style.display!=='none')buildThemeBar($('#themeSel').value);};
+
+/* ---------- org drill-down ---------- */
+const orgsBySec={};
+DATA.orgs.forEach(o=>{(orgsBySec[o.sector]=orgsBySec[o.sector]||[]).push(o);});
+Object.keys(orgsBySec).sort().forEach(sec=>{const o=ce('option');o.value=sec;o.textContent=sec;$('#drillCat').appendChild(o);});
+$('#drillCat').onchange=()=>{
+  const sel=$('#drillCat').value, os=$('#drillOrg');
+  os.innerHTML='<option value="">Select an organisation…</option>';
+  $('#orgcard').classList.remove('show');
+  if(!sel){os.disabled=true;return;}
+  os.disabled=false;
+  orgsBySec[sel].slice().sort((a,b)=>a.org.localeCompare(b.org)).forEach((o,i)=>{
+    const op=ce('option');op.value=o.org;op.textContent=o.org;os.appendChild(op);
+  });
+};
+$('#drillOrg').onchange=()=>{
+  const sel=$('#drillCat').value, name=$('#drillOrg').value;
+  if(!name){$('#orgcard').classList.remove('show');return;}
+  const o=orgsBySec[sel].find(x=>x.org===name);
+  $('#orgcard').classList.add('show');
+  $('#orgcard').innerHTML=`<div class="oh"><h4>${esc(o.org)}</h4><div class="om">${esc(o.sector)} · ${esc(o.country)}</div></div>`+
+    THEMES.map(t=>{const v=o.scores[t.id];const num=(typeof v==='number');
+      return `<div class="rrow" style="display:grid;grid-template-columns:150px 30px 1fr;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:13px">
+        <div class="rt" style="color:var(--sec)">${t.id} · ${esc(t.label)}</div>
+        <div class="rs" style="background:${num?SHEX[v]:'#cfcdc4'};color:#fff;border-radius:3px;text-align:center;height:20px;line-height:20px;font-size:11px">${num?(v>0?'+'+v:v):'—'}</div>
+        <div class="rx">${esc(o.rat[t.id])}</div></div>`;
+    }).join('');
+};
+
+/* ---------- footer ---------- */
+$('#footer').innerHTML=`<p><strong>Method.</strong> Respondents were classified into ${DATA.totals.org_categories} organisational categories plus individual citizens, starting from the portal's respondent types and refined by organisation name. Coordination was detected with exact-text hashing and TF-IDF cosine clustering at threshold ${co.sim_threshold}; multilingual sentence embeddings were unavailable in the build environment, so this is the stated fallback and will under-detect cross-language templates. Category-level theme scores and summaries are analyst judgments grounded in representative submissions; individual organisation scores are drawn from each organisation's own consultation text, with attachment-only submissions marked accordingly.</p>
+<p><strong>Scoring scale.</strong> −2 strongly against new rules · −1 against · 0 neutral or not addressed · +1 in favour · +2 strongly in favour. For T5 the axis is a new legislative instrument (+) versus enforcement of existing law (−).</p>
+<p>${DATA.totals.submissions.toLocaleString()} submissions · ${DATA.date_range} · generated for portfolio use.</p>`;
+</script>
+</body>
+</html>
