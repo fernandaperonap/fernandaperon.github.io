@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How does an ESG rating work?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#E9ECE3;
+    --paper-2:#EFF1EA;
+    --card:#F7F8F3;
+    --ink:#16271E;
+    --ink-soft:#46554C;
+    --ink-faint:#6E7A71;
+    --env:#2E7D57;
+    --soc:#C0742C;
+    --gov:#3F5F89;
+    --gold:#9F7728;
+    --line:rgba(22,39,30,.14);
+    --line-soft:rgba(22,39,30,.08);
+    --shadow:0 1px 0 rgba(22,39,30,.04), 0 18px 40px -28px rgba(22,39,30,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-faint);font-weight:500;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;line-height:1.05;letter-spacing:-.01em}
+  a{color:inherit}
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:64px 0 40px;border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:center}
+  .hero-tag{display:flex;gap:14px;align-items:center;margin-bottom:26px}
+  .hero-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--env)}
+  h1{font-size:clamp(42px,6.2vw,76px);font-weight:600}
+  h1 em{font-style:italic;color:var(--env)}
+  .lede{margin-top:24px;font-size:19px;color:var(--ink-soft);max-width:46ch}
+
+  /* scorecard */
+  .scorecard{
+    background:var(--ink);color:#EDEFE8;border-radius:18px;padding:30px 30px 26px;
+    box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .scorecard .sc-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9FB3A6}
+  .sc-company{font-family:'Fraunces',serif;font-size:18px;margin-top:4px;color:#fff;font-weight:500}
+  .sc-big{display:flex;align-items:baseline;gap:10px;margin:18px 0 4px}
+  .sc-number{font-family:'Fraunces',serif;font-size:78px;font-weight:600;line-height:.9;color:#fff;font-variant-numeric:tabular-nums}
+  .sc-of{font-family:'IBM Plex Mono',monospace;font-size:18px;color:#8FA396}
+  .sc-pct{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--gold);letter-spacing:.05em}
+  .sc-dims{margin-top:22px;display:flex;flex-direction:column;gap:13px}
+  .dim-row{display:grid;grid-template-columns:96px 1fr 34px;align-items:center;gap:12px}
+  .dim-name{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#C7D2CA}
+  .dim-track{height:7px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden}
+  .dim-fill{height:100%;width:0;border-radius:6px;transition:width 1.3s cubic-bezier(.16,1,.3,1)}
+  .dim-val{font-family:'IBM Plex Mono',monospace;font-size:13px;text-align:right;color:#EDEFE8}
+  .e .dim-fill{background:var(--env)} .s .dim-fill{background:var(--soc)} .g .dim-fill{background:var(--gov)}
+  .sc-foot{margin-top:22px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8FA396;line-height:1.5}
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  .sec-head{max-width:62ch;margin-bottom:40px}
+  .sec-head h2{font-size:clamp(28px,3.6vw,42px);margin-top:14px}
+  .sec-head p{margin-top:18px;color:var(--ink-soft);font-size:18px}
+
+  /* ---------- ANATOMY / HIERARCHY ---------- */
+  .tiers{display:flex;flex-direction:column;gap:0}
+  .tier{
+    display:grid;grid-template-columns:74px 1fr;gap:22px;align-items:start;
+    padding:22px 0;border-top:1px solid var(--line-soft);position:relative;
+  }
+  .tier:first-child{border-top:none}
+  .tier-rail{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .tier-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-faint);font-weight:500}
+  .tier-node{width:13px;height:13px;border-radius:50%;border:2px solid var(--env);background:var(--paper)}
+  .tier:nth-child(2) .tier-node{border-color:var(--soc)}
+  .tier:nth-child(3) .tier-node{border-color:var(--gov)}
+  .tier:nth-child(4) .tier-node{border-color:var(--gold)}
+  .tier-line{width:2px;flex:1;min-height:16px;background:var(--line)}
+  .tier-body h3{font-size:21px;font-weight:600}
+  .tier-body .scale{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--env);margin-left:8px}
+  .tier:nth-child(2) .scale{color:var(--soc)} .tier:nth-child(3) .scale{color:var(--gov)} .tier:nth-child(4) .scale{color:var(--gold)}
+  .tier-body p{margin-top:7px;color:var(--ink-soft);font-size:16px;max-width:64ch}
+  .gics-note{
+    margin-top:30px;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 24px;display:flex;gap:18px;align-items:flex-start;
+  }
+  .gics-note .badge{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;background:var(--ink);color:#EDEFE8;padding:6px 10px;border-radius:6px;white-space:nowrap;margin-top:2px}
+  .gics-note p{font-size:15.5px;color:var(--ink-soft)}
+
+  /* ---------- DOUBLE MATERIALITY ---------- */
+  .dm-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
+  .dm-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;position:relative;overflow:hidden}
+  .dm-card .arrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;color:var(--ink-faint);text-transform:uppercase}
+  .dm-card h3{font-size:22px;margin:10px 0 8px}
+  .dm-card.fin h3{color:var(--gov)} .dm-card.imp h3{color:var(--env)}
+  .dm-card p{font-size:15.5px;color:var(--ink-soft)}
+  .dm-card .stripe{position:absolute;left:0;top:0;bottom:0;width:4px}
+  .dm-card.fin .stripe{background:var(--gov)} .dm-card.imp .stripe{background:var(--env)}
+
+  /* ---------- MATERIALITY MAP ---------- */
+  .map-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:24px}
+  .filter-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;
+    border:1px solid var(--line);background:transparent;color:var(--ink-soft);
+    padding:8px 14px;border-radius:999px;cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:8px;
+  }
+  .filter-btn .swatch{width:9px;height:9px;border-radius:50%}
+  .filter-btn[data-dim="e"] .swatch{background:var(--env)}
+  .filter-btn[data-dim="s"] .swatch{background:var(--soc)}
+  .filter-btn[data-dim="g"] .swatch{background:var(--gov)}
+  .filter-btn:hover{border-color:var(--ink)}
+  .filter-btn.active{background:var(--ink);color:#EDEFE8;border-color:var(--ink)}
+  .map-layout{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+  .chip-grid{display:flex;flex-wrap:wrap;gap:9px;align-content:flex-start}
+  .chip{
+    font-size:13.5px;font-weight:500;border:1px solid var(--line);background:var(--card);
+    color:var(--ink);padding:9px 13px;border-radius:10px;cursor:pointer;transition:.16s;
+    display:inline-flex;align-items:center;gap:8px;text-align:left;line-height:1.25;
+  }
+  .chip .tag{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .chip.e .tag{background:var(--env)} .chip.s .tag{background:var(--soc)} .chip.g .tag{background:var(--gov)}
+  .chip:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+  .chip.e:hover{border-color:var(--env)} .chip.s:hover{border-color:var(--soc)} .chip.g:hover{border-color:var(--gov)}
+  .chip.active{color:#fff;border-color:transparent}
+  .chip.active.e{background:var(--env)} .chip.active.s{background:var(--soc)} .chip.active.g{background:var(--gov)}
+  .chip.active .tag{background:rgba(255,255,255,.85)}
+  .chip.dimmed{opacity:.22;pointer-events:none}
+
+  .detail{
+    position:sticky;top:20px;background:var(--card);border:1px solid var(--line);
+    border-radius:16px;padding:28px;min-height:280px;box-shadow:var(--shadow);
+  }
+  .detail .d-dim{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px}
+  .detail .d-dim .tag{width:9px;height:9px;border-radius:50%}
+  .detail h3{font-size:26px;margin:14px 0 14px;line-height:1.1}
+  .detail p{font-size:16px;color:var(--ink-soft);line-height:1.65}
+  .detail .placeholder{color:var(--ink-faint);font-size:16px;font-style:italic;font-family:'Fraunces',serif}
+  .detail.e{border-top:4px solid var(--env)} .detail.s{border-top:4px solid var(--soc)} .detail.g{border-top:4px solid var(--gov)}
+  .map-source{margin-top:24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-faint);line-height:1.6}
+  .map-source a{color:var(--env);text-decoration:underline;text-underline-offset:2px}
+  .legend-inline{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-faint);display:flex;gap:16px;flex-wrap:wrap;margin-top:6px}
+  .legend-inline span{display:inline-flex;align-items:center;gap:6px}
+  .legend-inline i{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+  /* ---------- PROVIDERS ---------- */
+  .prov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .prov{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px}
+  .prov.lead{border:1.5px solid var(--gold)}
+  .prov .rank{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+  .prov h3{font-size:20px}
+  .prov .scale-pill{align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:var(--paper);border:1px solid var(--line);padding:5px 10px;border-radius:7px;color:var(--ink-soft)}
+  .prov p{font-size:14.5px;color:var(--ink-soft)}
+  .prov-more{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .prov-min{border:1px solid var(--line-soft);border-radius:12px;padding:16px 18px;background:transparent}
+  .prov-min h4{font-family:'Fraunces',serif;font-size:16px;font-weight:600;margin-bottom:5px}
+  .prov-min p{font-size:13px;color:var(--ink-faint);line-height:1.5}
+
+  /* ---------- WHY / IN-HOUSE ---------- */
+  .why-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start}
+  .why-list{display:flex;flex-direction:column;gap:18px}
+  .why-item{display:grid;grid-template-columns:30px 1fr;gap:14px;align-items:start}
+  .why-item .n{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--env);padding-top:3px}
+  .why-item h4{font-family:'Fraunces',serif;font-size:18px;font-weight:600}
+  .why-item p{font-size:15px;color:var(--ink-soft);margin-top:3px}
+  .callout{background:var(--ink);color:#EDEFE8;border-radius:18px;padding:30px;box-shadow:var(--shadow)}
+  .callout .eyebrow{color:var(--gold)}
+  .callout h3{color:#fff;font-size:24px;margin:14px 0 12px}
+  .callout p{font-size:15px;color:#C7D2CA;line-height:1.65}
+  .callout p+p{margin-top:14px}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:46px 0 70px}
+  .foot-note{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-faint);line-height:1.7;max-width:70ch}
+  .foot-note a{color:var(--env)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:36px}
+    .map-layout{grid-template-columns:1fr}
+    .detail{position:static}
+    .dm-grid{grid-template-columns:1fr}
+    .prov-grid{grid-template-columns:1fr}
+    .prov-more{grid-template-columns:1fr}
+    .why-grid{grid-template-columns:1fr;gap:28px}
+  }
+  @media(max-width:520px){
+    body{font-size:16px}
+    .wrap{padding:0 18px}
+    header.hero{padding:40px 0 30px}
+    .sc-number{font-size:62px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .dim-fill{transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag">
+          <span class="dot"></span>
+          <span class="eyebrow">Quick post · Sustainable finance</span>
+        </div>
+        <h1>How does an <em>ESG rating</em> work?</h1>
+        <p class="lede">A rating isn't one number pulled from thin air. It's a stack: a global score built from weighted dimensions, themselves built from dozens of criteria that change with the industry you're in.</p>
+      </div>
+
+      <div class="scorecard" id="scorecard">
+        <div class="sc-label">S&amp;P Global ESG Score · illustrative</div>
+        <div class="sc-company">Food &amp; Beverage Co.</div>
+        <div class="sc-big">
+          <span class="sc-number" id="scoreNum">0</span>
+          <span class="sc-of">/100</span>
+        </div>
+        <div class="sc-pct" id="scorePct">— percentile vs. industry peers</div>
+
+        <div class="sc-dims">
+          <div class="dim-row e">
+            <span class="dim-name">Environmental</span>
+            <span class="dim-track"><span class="dim-fill" data-val="81"></span></span>
+            <span class="dim-val">81</span>
+          </div>
+          <div class="dim-row s">
+            <span class="dim-name">Social</span>
+            <span class="dim-track"><span class="dim-fill" data-val="70"></span></span>
+            <span class="dim-val">70</span>
+          </div>
+          <div class="dim-row g">
+            <span class="dim-name">Gov. &amp; Econ.</span>
+            <span class="dim-track"><span class="dim-fill" data-val="68"></span></span>
+            <span class="dim-val">68</span>
+          </div>
+        </div>
+
+        <div class="sc-foot">Global score = Σ (weighted dimension scores). Each dimension = Σ (weighted criteria), adjusted for ESG controversies. Numbers shown are illustrative.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== ANATOMY ===================== -->
+<section id="anatomy">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The anatomy of a score</span>
+      <h2>Four levels, from the headline number down to the data</h2>
+      <p>Reading top-to-bottom: the score you see at the top is assembled from the layers beneath it. Each layer is weighted, and the weights are decided by what actually matters for the company's industry.</p>
+    </div>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-rail"><span class="tier-num">01</span><span class="tier-node"></span><span class="tier-line"></span></div>
+        <div class="tier-body">
+          <h3>Global S&amp;P Global ESG Score<span class="scale">0–100</span></h3>
+          <p>The headline figure — a sum of the weighted dimension scores. It's a relative score: where the company sits versus peers in the same industry, not an absolute pass/fail.</p>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-rail"><span class="tier-num">02</span><span class="tier-node"></span><span class="tier-line"></span></div>
+        <div class="tier-body">
+          <h3>Three dimension scores<span class="scale">E · S · G&amp;Econ</span></h3>
+          <p>Environmental, Social, and Governance &amp; Economic. Each is a weighted roll-up of its criteria, then adjusted downward where corporate ESG controversies apply.</p>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-rail"><span class="tier-num">03</span><span class="tier-node"></span><span class="tier-line"></span></div>
+        <div class="tier-body">
+          <h3>30+ criteria<span class="scale">industry-specific</span></h3>
+          <p>The building blocks. The set of criteria — and how heavily each one is weighted — differs by industry. Here we're looking at <strong>food &amp; beverage</strong>. The weight of a criterion depends on its <em>materiality</em> for that sector.</p>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-rail"><span class="tier-num">04</span><span class="tier-node"></span></div>
+        <div class="tier-body">
+          <h3>Industry classification<span class="scale">GICS</span></h3>
+          <p>Everything above hinges on which industry a company is placed in. S&amp;P Global uses the Global Industry Classification Standard (GICS) to set a company's CSA industry — which in turn determines its criteria and weights.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gics-note">
+      <span class="badge">GICS</span>
+      <p>Jointly developed by MSCI and S&amp;P Global Market Intelligence, GICS is the classification both major rating houses lean on to decide what a company should be compared against. Get the industry wrong and the whole stack of weights is wrong.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DOUBLE MATERIALITY ===================== -->
+<section id="materiality-intro">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Why industry matters</span>
+      <h2>Every industry has different pressure points</h2>
+      <p>What's relevant for one sector isn't necessarily relevant for another. The risk and importance of biodiversity loss in food &amp; beverage is far more elevated than in banking — so it carries far more weight. That judgement is made through <em>materiality</em>, and S&amp;P Global takes a <strong>double-materiality</strong> view.</p>
+    </div>
+
+    <div class="dm-grid">
+      <div class="dm-card fin">
+        <span class="stripe"></span>
+        <span class="arrow">Outside → in</span>
+        <h3>Financial materiality</h3>
+        <p>How social and environmental factors affect the company's value. Climate regulation, water scarcity or supply shocks land on the balance sheet — these are risks and opportunities to the business itself.</p>
+      </div>
+      <div class="dm-card imp">
+        <span class="stripe"></span>
+        <span class="arrow">Inside → out</span>
+        <h3>Impact materiality</h3>
+        <p>How the company affects society and the environment. Its footprint on ecosystems, communities and workers — the company's impact on the world around it, regardless of whether it shows up financially.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INTERACTIVE MATERIALITY MAP ===================== -->
+<section id="map">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Interactive · Food products</span>
+      <h2>The materiality map</h2>
+      <p>These are the most pressing issues for food products — each affects both the value of the company and its external impact. Tap any topic to read what it covers. Filter by dimension to see how E, S and G split across the map.</p>
+      <div class="legend-inline">
+        <span><i style="background:var(--env)"></i> Environmental</span>
+        <span><i style="background:var(--soc)"></i> Social</span>
+        <span><i style="background:var(--gov)"></i> Governance &amp; Economic</span>
+      </div>
+    </div>
+
+    <div class="map-toolbar" id="filters">
+      <button class="filter-btn active" data-dim="all">All topics</button>
+      <button class="filter-btn" data-dim="e"><span class="swatch"></span>Environmental</button>
+      <button class="filter-btn" data-dim="s"><span class="swatch"></span>Social</button>
+      <button class="filter-btn" data-dim="g"><span class="swatch"></span>Governance</button>
+    </div>
+
+    <div class="map-layout">
+      <div class="chip-grid" id="chipGrid"><!-- chips injected by JS --></div>
+
+      <aside class="detail" id="detail" aria-live="polite">
+        <span class="d-dim" id="dDim"></span>
+        <h3 id="dTitle"></h3>
+        <p id="dText" class="placeholder">Select a topic on the left to read its description.</p>
+      </aside>
+    </div>
+
+    <div class="map-source">
+      Topics and definitions follow S&amp;P Global's industry materiality framework. You can explore the map for every industry at
+      <a href="https://www.spglobal.com/sustainable1/en/solutions/dataset-tools/industry-materiality" target="_blank" rel="noopener">spglobal.com/sustainable1 · industry-materiality</a>.
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROVIDERS ===================== -->
+<section id="providers">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Who produces the ratings</span>
+      <h2>The main rating houses</h2>
+      <p>S&amp;P Global is one of three names that dominate the space. The others run their own methodologies, scales and definitions of what's material — which is exactly why the same company can land very different scores depending on who you ask.</p>
+    </div>
+
+    <div class="prov-grid">
+      <div class="prov lead">
+        <span class="rank">The one above ↑</span>
+        <h3>S&amp;P Global ESG Scores</h3>
+        <span class="scale-pill">0–100 · percentile vs peers</span>
+        <p>Peer-relative score built on the Corporate Sustainability Assessment (CSA). Integrates with S&amp;P's traditional credit-analysis infrastructure. Feeds the Sustainability Yearbook and the Dow Jones Best-in-Class indices.</p>
+      </div>
+      <div class="prov">
+        <span class="rank">Big three</span>
+        <h3>MSCI ESG Ratings</h3>
+        <span class="scale-pill">AAA → CCC · letter</span>
+        <p>Industry-relative, rules-based methodology that ranks leaders and laggards within a GICS sub-industry. Established 1999; widely used for index construction. In 2024 MSCI struck a data partnership with Moody's.</p>
+      </div>
+      <div class="prov">
+        <span class="rank">Big three</span>
+        <h3>Morningstar Sustainalytics</h3>
+        <span class="scale-pill">Risk · negligible → severe</span>
+        <p>Measures unmanaged ESG <em>risk</em> to enterprise value — lower number means lower risk, the inverse of S&amp;P's logic. Broadest coverage (15,000+ companies, incl. private). Separates its controversy rating from the core score.</p>
+      </div>
+    </div>
+
+    <div class="prov-more">
+      <div class="prov-min"><h4>ISS ESG</h4><p>Performance scale A+ to D−, benchmarked against sector peers; "Prime" status for leaders.</p></div>
+      <div class="prov-min"><h4>CDP</h4><p>Disclosure-led grades A to D−, scored from an annual climate, water &amp; forests questionnaire.</p></div>
+      <div class="prov-min"><h4>LSEG (ex-Refinitiv / Asset4)</h4><p>Transparent public-data scores across 15,000+ companies.</p></div>
+      <div class="prov-min"><h4>Sustainable Fitch</h4><p>ESG ratings for companies and individual financial instruments, from the Fitch group.</p></div>
+      <div class="prov-min"><h4>Bloomberg</h4><p>Real-time, market-responsive ESG data built off its financial-data backbone.</p></div>
+      <div class="prov-min"><h4>EcoVadis</h4><p>The go-to for supply-chain and supplier-level sustainability assessment.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY + IN-HOUSE ===================== -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">So why do we want ratings?</span>
+      <h2>What a rating is actually for</h2>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-list">
+        <div class="why-item">
+          <span class="n">01</span>
+          <div><h4>Comparability</h4><p>A common yardstick to line companies up against their peers — the whole point of an industry-relative score.</p></div>
+        </div>
+        <div class="why-item">
+          <span class="n">02</span>
+          <div><h4>Risk &amp; opportunity</h4><p>A read on sustainability-related risks before they hit the bottom line, and on where the upside sits.</p></div>
+        </div>
+        <div class="why-item">
+          <span class="n">03</span>
+          <div><h4>Screening &amp; index construction</h4><p>Ratings feed ETFs, best-in-class indices and exclusion screens — they drive where capital flows.</p></div>
+        </div>
+        <div class="why-item">
+          <span class="n">04</span>
+          <div><h4>Regulation &amp; reporting</h4><p>The EU's ESG Rating Regulation (2024/3005) starts applying to providers in July 2026, pushing methodology transparency and conflict-of-interest rules.</p></div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <span class="eyebrow">The catch</span>
+        <h3>Ratings disagree — and some firms build their own</h3>
+        <p>Because each house defines materiality, weights and scope differently, the same company can score high with one provider and middling with another. Researchers call it "aggregate confusion"; scope divergence — which issues even get measured — is the biggest driver.</p>
+        <p>That's partly why a lot of the production happens <strong>in-house</strong>: large asset managers run proprietary ESG models rather than relying on a single vendor — to control the methodology, fill coverage gaps, and avoid inheriting someone else's disagreement. Buying two providers and blending them is another common fix.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="foot-note">
+      Quick post on ESG rating mechanics · methodology follows the S&amp;P Global Corporate Sustainability Assessment. Sample scorecard figures are illustrative. Explore the full materiality map at
+      <a href="https://www.spglobal.com/sustainable1/en/solutions/dataset-tools/industry-materiality" target="_blank" rel="noopener">spglobal.com/sustainable1</a>.
+    </p>
+  </div>
+</footer>
+
+<script>
+// ---------- Materiality topics (S&P Global framework, Food Products) ----------
+const TOPICS = [
+  {id:'sps', dim:'e', name:'Sustainable products & services', text:'Covers environmental and human health across the product life cycle, plus stewardship strategies and the market opportunity for more sustainable products. For food it includes the health and nutritional value of products; in other sectors, things like sustainable finance, circular fashion, green building and cleaner transport and energy.'},
+  {id:'cli', dim:'e', name:'Climate transition & physical risks', text:'The risks and opportunities from climate change and the move to a low-carbon economy. Transition risks — regulatory, market and technology — are tied to specific industries; physical-risk exposure is location- and company-specific. Includes energy-transition goals and the business response across the value chain.'},
+  {id:'wat', dim:'e', name:'Water', text:'The withdrawal, use, consumption, pollution or discharge of water. Companies may act to conserve water across operations, products and services. Also captures exposure to water stress or scarcity and the management of related regulatory, supply, stakeholder and quality risks.'},
+  {id:'srm', dim:'e', name:'Sustainable raw materials', text:'Sourcing and efficient use of resources — living and non-living: materials, energy, water, land and biomass. Focuses on sustainable agriculture and forestry. Good practice includes certification schemes for organic or sustainably produced goods, and animal welfare.'},
+  {id:'bio', dim:'e', name:'Biodiversity', text:'Land use is treated as a proxy for impact. Spans ecosystem, species and genetic diversity. Damage includes biodiversity loss through e.g. deforestation; management means avoiding activity near sensitive sites and applying the mitigation hierarchy to minimise losses and reach net-positive impact.'},
+  {id:'was', dim:'e', name:'Waste & pollutants', text:'Pollutants contaminate air, water and soil — oil spills, lead, mercury, VOCs, NOx, SOx. Waste covers hazardous and non-hazardous, liquid and solid waste from production and consumption, with prevention, monitoring, treatment and disposal — including food, packaging, construction and mineral waste.'},
+  {id:'epm', dim:'e', name:'Environmental policy & management', text:'The policies, processes and systems used to manage environmental performance across the value chain. Environmental Management Systems set goals and targets subject to verification, audit and certification, with monitoring, corrective action and tracking of any violations.'},
+  {id:'ene', dim:'e', name:'Energy', text:'Practices and technologies for energy efficiency, cleaner and alternative energy, and integrated energy systems. Covers gas-leakage rates, energy intensity, renewable consumption, data-centre energy efficiency and overall consumption.'},
+
+  {id:'hcm', dim:'s', name:'Human capital management', text:'Effective management of people from recruitment and development through performance and compensation. Includes education, training and coaching, talent attraction and retention, flexible working, stress management and employee wellbeing.'},
+  {id:'lab', dim:'s', name:'Labor practices', text:'Promotion of diversity, inclusion and equality, alongside core labor practices: freedom of association, the right to collective bargaining, fair working conditions and social protection. A living wage that covers workers\u2019 hours and basic needs is central.'},
+  {id:'pqs', dim:'s', name:'Product quality & safety', text:'The research, development, production and delivery of systems designed to ensure the safety and quality of products or services, and to minimise risk to the people who use them.'},
+  {id:'hr', dim:'s', name:'Human rights', text:'Businesses should support and respect human rights, avoiding and preventing adverse impacts across operations, supply chains and business relationships. Includes preventing human trafficking, forced labor and child labor — through due diligence, assessment, mitigation and remediation.'},
+  {id:'cust', dim:'s', name:'Customer relations', text:'Customer relationship management plus responsible marketing and labelling — ethical advertising, content moderation and protection of vulnerable groups. Includes measuring customer satisfaction and strengthening online presence and capability.'},
+
+  {id:'pol', dim:'g', name:'Policy influence', text:'Transparency around a company\u2019s activity and spending in legislative, political and public discourse: political donations, trade-association membership, lobbying and ballot/referendum spending. Both the amounts and the issues supported matter, as does preventing misinformation.'},
+  {id:'risk', dim:'g', name:'Risk & crisis management', text:'Governance structures and internal controls for managing short-, long-term and emerging risks. Requires an effective risk culture, sensitivity analysis and stress testing. Risk management is preventative; crisis management is corrective, responding to an unforeseen event.'},
+  {id:'sec', dim:'g', name:'Information security & responsible AI', text:'Protecting information systems and AI-enabled processes from cyber threats, data loss, disruption and misuse. Covers governance, incident response, business continuity, vulnerability assessment and training — plus ensuring AI is transparent, fair, accountable and under meaningful human oversight.'},
+  {id:'tax', dim:'g', name:'Tax strategy', text:'Governance, compliance and reporting on tax. Tax avoidance is legal but can obey the letter, not the spirit, of the law — so tax transparency and good governance matter, including minimum rates, incentives, fair-share taxation and the allocation of revenues and profits across jurisdictions.'}
+];
+
+const DIM_LABEL = {e:'Environmental', s:'Social', g:'Governance & Economic'};
+const DIM_COLOR = {e:'var(--env)', s:'var(--soc)', g:'var(--gov)'};
+
+// ---------- Build chips ----------
+const grid = document.getElementById('chipGrid');
+TOPICS.forEach(t=>{
+  const b = document.createElement('button');
+  b.className = 'chip ' + t.dim;
+  b.dataset.dim = t.dim;
+  b.dataset.id = t.id;
+  b.innerHTML = '<span class="tag"></span>' + t.name;
+  b.addEventListener('click', ()=>select(t.id));
+  grid.appendChild(b);
+});
+
+// ---------- Detail panel ----------
+const detail = document.getElementById('detail');
+const dDim = document.getElementById('dDim');
+const dTitle = document.getElementById('dTitle');
+const dText = document.getElementById('dText');
+
+function select(id){
+  const t = TOPICS.find(x=>x.id===id);
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active', c.dataset.id===id));
+  detail.className = 'detail ' + t.dim;
+  dDim.innerHTML = '<span class="tag" style="background:'+DIM_COLOR[t.dim]+'"></span>'+DIM_LABEL[t.dim];
+  dTitle.textContent = t.name;
+  dText.textContent = t.text;
+  dText.classList.remove('placeholder');
+}
+
+// ---------- Filters ----------
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const dim = btn.dataset.dim;
+    document.querySelectorAll('.chip').forEach(c=>{
+      c.classList.toggle('dimmed', dim!=='all' && c.dataset.dim!==dim);
+    });
+  });
+});
+
+// ---------- Hero scorecard animation ----------
+const TARGET = 74;
+const numEl = document.getElementById('scoreNum');
+const pctEl = document.getElementById('scorePct');
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function runHero(){
+  document.querySelectorAll('.dim-fill').forEach(f=>{ f.style.width = f.dataset.val + '%'; });
+  if(reduce){ numEl.textContent = TARGET; pctEl.textContent = '78th percentile vs. industry peers'; return; }
+  let start=null, dur=1300;
+  function step(ts){
+    if(!start) start=ts;
+    const p = Math.min((ts-start)/dur,1);
+    const eased = 1-Math.pow(1-p,3);
+    numEl.textContent = Math.round(eased*TARGET);
+    if(p<1) requestAnimationFrame(step);
+    else pctEl.textContent = '78th percentile vs. industry peers';
+  }
+  requestAnimationFrame(step);
+}
+
+const hero = document.getElementById('scorecard');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ runHero(); io.disconnect(); }});
+},{threshold:.4});
+io.observe(hero);
+
+// preselect a representative topic so the panel isn't empty on load
+select('bio');
+</script>
+</body>
+</html>
