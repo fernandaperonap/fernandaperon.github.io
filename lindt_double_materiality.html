@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lindt &amp; Sprüngli — Double Materiality Assessment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ECE5D6;
+    --paper-deep:#E2D9C5;
+    --ink:#241A12;
+    --ink-soft:#5A4D3F;
+    --cocoa:#5C3625;
+    --gold:#9C7A30;
+    --rust:#8A3A2A;
+    --slate:#3C4A47;
+    --line:#C7BBA0;
+    --white:#FAF7F0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:0 28px 120px;}
+
+  /* HERO */
+  header.hero{
+    border-bottom:1px solid var(--ink);
+    padding:64px 0 36px;
+    margin-bottom:8px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--cocoa);
+    margin:0 0 18px;
+  }
+  h1{
+    font-family:'Source Serif 4', serif;
+    font-weight:600;
+    font-size:42px;
+    line-height:1.12;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{
+    font-size:18px;
+    color:var(--ink-soft);
+    max-width:620px;
+    margin:0 0 32px;
+  }
+  .profile-strip{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    border-top:1px solid var(--line);
+    padding-top:18px;
+  }
+  .profile-strip div{padding-right:12px;}
+  .profile-strip .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--ink-soft);
+    margin-bottom:4px;
+  }
+  .profile-strip .value{font-size:15px; font-weight:500;}
+
+  /* SECTIONS */
+  section{padding:48px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  h2{
+    font-family:'Source Serif 4', serif;
+    font-size:27px;
+    font-weight:600;
+    margin:0 0 18px;
+    letter-spacing:-0.005em;
+  }
+  h3{
+    font-family:'Source Serif 4', serif;
+    font-size:20px;
+    font-weight:600;
+    margin:30px 0 10px;
+  }
+  p{margin:0 0 16px; max-width:700px;}
+  .lede{font-size:17px; color:var(--ink-soft);}
+
+  /* PILLAR TAGS */
+  .pillar-tag{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    padding:3px 9px;
+    border:1px solid currentColor;
+    border-radius:2px;
+    margin-bottom:16px;
+  }
+  .pillar-tag.E{color:var(--gold);}
+  .pillar-tag.S{color:var(--rust);}
+  .pillar-tag.G{color:var(--slate);}
+
+  /* CALLOUT */
+  .callout{
+    background:var(--white);
+    border-left:3px solid var(--cocoa);
+    padding:22px 26px;
+    margin:24px 0;
+    max-width:700px;
+  }
+  .callout .callout-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--cocoa);
+    margin-bottom:10px;
+  }
+  .callout p{margin-bottom:10px; font-size:15px;}
+  .callout p:last-child{margin-bottom:0;}
+  .callout .stat{
+    font-family:'Source Serif 4', serif;
+    font-size:26px;
+    font-weight:600;
+    color:var(--cocoa);
+  }
+  .callout a{color:var(--cocoa);}
+  .source-line{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    word-break:break-all;
+  }
+
+  /* MATRIX */
+  .matrix-block{
+    display:flex;
+    gap:36px;
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+  .matrix-plot{
+    position:relative;
+    width:420px;
+    height:420px;
+    background:var(--white);
+    border:1px solid var(--ink);
+    flex-shrink:0;
+  }
+  .matrix-plot .axis-label{
+    position:absolute;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:.07em;
+    color:var(--ink-soft);
+  }
+  .axis-y{
+    left:-14px; top:50%;
+    transform:translateY(-50%) rotate(-90deg);
+    transform-origin:center;
+  }
+  .axis-x{ bottom:-26px; left:50%; transform:translateX(-50%);}
+  .matrix-plot .gridline{
+    position:absolute; background:var(--line);
+  }
+  .gridline.h{width:100%; height:1px; top:50%;}
+  .gridline.v{height:100%; width:1px; left:50%;}
+  .matrix-plot .corner{
+    position:absolute;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    color:#B9AD92;
+    text-transform:uppercase;
+  }
+  .corner.tr{top:8px; right:10px;}
+  .corner.bl{bottom:8px; left:10px;}
+  .dot{
+    position:absolute;
+    width:13px; height:13px;
+    border-radius:50%;
+    border:2px solid var(--white);
+    transform:translate(-50%,50%);
+  }
+  .dot-label{
+    position:absolute;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    font-weight:500;
+    background:var(--white);
+    padding:1px 4px;
+    border-radius:2px;
+    white-space:nowrap;
+  }
+  .legend{flex:1; min-width:220px;}
+  .legend-item{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    margin-bottom:16px;
+  }
+  .legend-swatch{
+    width:11px; height:11px; border-radius:50%;
+    margin-top:5px; flex-shrink:0;
+  }
+  .legend-item .lt{font-weight:600; font-size:14.5px; margin-bottom:2px;}
+  .legend-item .ld{font-size:13.5px; color:var(--ink-soft);}
+
+  /* TABLE */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:22px 0 8px;
+    font-size:14.5px;
+  }
+  th, td{
+    text-align:left;
+    padding:10px 12px;
+    border-bottom:1px solid var(--line);
+  }
+  th{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--ink-soft);
+    font-weight:500;
+  }
+  tr.highlight td{background:#E2D9C5; font-weight:600;}
+  .yes{color:#3D6B4A; font-weight:600;}
+  .no{color:var(--rust); font-weight:600;}
+  .unclear{color:var(--gold); font-weight:600;}
+
+  footer{
+    padding:40px 0 10px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  footer .source-list{font-family:'IBM Plex Mono', monospace; font-size:12px; line-height:2;}
+  footer a{color:var(--ink-soft);}
+
+  @media(max-width:640px){
+    h1{font-size:32px;}
+    .profile-strip{grid-template-columns:repeat(2,1fr); row-gap:16px;}
+    .matrix-plot{width:100%; height:340px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">ESG Case Study · Double Materiality</p>
+    <h1>Lindt &amp; Sprüngli<br>Double Materiality Assessment</h1>
+    <p class="subtitle">A read on how cocoa supply chain risk runs through Lindt's environmental, social and governance exposure at once, and why scoring the three pillars separately misses the actual risk.</p>
+    <div class="profile-strip">
+      <div><div class="label">Country</div><div class="value">Switzerland</div></div>
+      <div><div class="label">Sector</div><div class="value">Food</div></div>
+      <div><div class="label">Founded</div><div class="value">1845</div></div>
+      <div><div class="label">Employees</div><div class="value">~14,000</div></div>
+      <div><div class="label">Revenue (2025)</div><div class="value">~CHF 6bn</div></div>
+    </div>
+  </header>
+
+  <section>
+    <p class="lede">Lindt &amp; Sprüngli is a useful case because its materiality profile is unusually concentrated. For a vertically integrated, bean-to-bar premium chocolatier, the single most material cluster of issues sits upstream in the cocoa supply chain, and that cluster spans all three pillars at once. An ESG scorer who treats E, S and G as independent buckets will mis-rank it. The double materiality lens makes this clearer, so impact on the world and financial risk to the company are flagged separately wherever they diverge.</p>
+  </section>
+
+  <section>
+    <h2>Materiality matrix</h2>
+    <p>Issues classified by impact materiality (inside-out: the company's effect on people and the environment) against financial materiality (outside-in: the risk the issue poses back to the company).</p>
+
+    <div class="matrix-block">
+      <div class="matrix-plot">
+        <div class="gridline h"></div>
+        <div class="gridline v"></div>
+        <div class="axis-label axis-y">Impact materiality (inside-out) →</div>
+        <div class="axis-label axis-x">Financial materiality (outside-in) →</div>
+        <div class="corner tr">high / high</div>
+        <div class="corner bl">low / low</div>
+
+        <div class="dot" style="left:90%; bottom:88%; background:var(--rust);"></div>
+        <div class="dot-label" style="left:62%; bottom:90%;">Human rights</div>
+
+        <div class="dot" style="left:82%; bottom:80%; background:var(--gold);"></div>
+        <div class="dot-label" style="left:48%; bottom:74%;">Supply chain (environmental)</div>
+
+        <div class="dot" style="left:78%; bottom:71%; background:var(--cocoa);"></div>
+        <div class="dot-label" style="left:50%; bottom:64%;">Sustainability (health)</div>
+
+        <div class="dot" style="left:68%; bottom:73%; background:var(--slate);"></div>
+        <div class="dot-label" style="left:18%; bottom:56%;">Supply chain (management)</div>
+
+        <div class="dot" style="left:34%; bottom:30%; background:#9A8E78;"></div>
+        <div class="dot-label" style="left:8%; bottom:24%;">Governance ethics</div>
+      </div>
+
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:var(--rust);"></div>
+          <div><div class="lt">Human rights</div><div class="ld">Cocoa supply chain tied to documented human rights violations, including child labour. A single controversy moves the stock, given how exposed Lindt is to one product category.</div></div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:var(--slate);"></div>
+          <div><div class="lt">Supply chain management</div><div class="ld">How the company sources, processes and transforms raw materials. Carries environmental and societal risk on the cocoa side.</div></div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:#9A8E78;"></div>
+          <div><div class="lt">Corporate &amp; governance ethics</div><div class="ld">Code of conduct and standard governance practice. Material to any company in any industry, but Lindt is not particularly exposed here relative to its peers.</div></div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:var(--gold);"></div>
+          <div><div class="lt">Supply chain environmental</div><div class="ld">Risk of losing market access through regulatory infringement. Impact materiality centres on deforestation and biodiversity loss, since cacao is a leading driver of deforestation in West Africa.</div></div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch" style="background:var(--cocoa);"></div>
+          <div><div class="lt">Sustainability (health)</div><div class="ld">Direct effects on consumer health. Lindt has already faced a lawsuit over unsafe levels of heavy metals in its chocolate.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">Why child labour persists</div>
+      <p><span class="stat">45%</span> of children living in cocoa growing areas are engaged in farming activities.</p>
+      <p>Ghana and Côte d'Ivoire alone account for about 60% of all cocoa production, and farmer income has become structurally unstable. In the 1970s, cocoa farmers received around 50% of the value of a chocolate bar. Today they receive about 6%. Paid this little, farming households end up relying on children to meet labour demand cheaply, which is what makes child labour a systemic feature of the cocoa sector rather than an isolated failure.</p>
+      <p class="source-line">Source: sustainalytics.com/esg-research/resource/investors-esg-blog/child-labor-in-cocoa-supply-chains</p>
+    </div>
+
+    <h3>What can actually be done</h3>
+    <p>Tracking production back to direct suppliers and checking conditions on the ground is the starting point. Beyond that: channels that let suppliers raise concerns without retaliation, and clear managerial responsibility for acting on what those channels surface. Certification alone does not close this gap; it verifies that a system exists, not that the outcome on the ground matches it.</p>
+
+    <h3>How peers compare on standards</h3>
+    <table>
+      <thead>
+        <tr><th>Company</th><th>Addresses child labour</th><th>Addresses minimum living wage</th><th>Example product</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Nestlé</td><td class="yes">Yes</td><td class="yes">Yes</td><td>KitKat</td></tr>
+        <tr><td>Mondelez</td><td class="yes">Yes</td><td class="yes">Yes</td><td>Cadbury Dairy Milk</td></tr>
+        <tr><td>Barry Callebaut</td><td class="yes">Yes</td><td class="yes">Yes</td><td>Callebaut couverture chocolate</td></tr>
+        <tr><td>Hershey's</td><td class="yes">Yes</td><td class="no">No</td><td>Hershey's Milk Chocolate Bar</td></tr>
+        <tr><td>Cargill</td><td class="yes">Yes</td><td class="no">No</td><td>Cargill cocoa &amp; chocolate ingredients</td></tr>
+        <tr><td>OFI Group</td><td class="yes">Yes</td><td class="unclear">Unclear</td><td>Cocoa ingredients (B2B)</td></tr>
+        <tr class="highlight"><td>Lindt</td><td class="yes">Yes</td><td class="no">No</td><td>Lindt Excellence 70% Cocoa</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <span class="pillar-tag E">ENVIRONMENTAL</span>
+    <h2>Deforestation, palm oil and climate exposure</h2>
+    <p>Deforestation and land-use change is the most financially material environmental issue right now, because it has moved from reputational to regulatory. The external impact is high and so is the internal exposure, since Lindt relies on continued access to cocoa-growing land. Cocoa is a primary driver of West African deforestation, and the EUDR brings cocoa squarely into scope with traceability-to-plot and due diligence obligations. Lindt has set a no-deforestation-in-cocoa target for end-2025 and is extending the same logic to palm, soy and paper-based packaging. The financial materiality here is compliance and market-access risk in the EU; the impact materiality is forest and ecosystem loss. These do not move together, which is exactly why double materiality matters for the assessment.</p>
+
+    <p>Palm oil sits alongside cocoa as a driver of deforestation, particularly in Southeast Asia. It is used in chocolate to replace the melt-in-the-mouth texture that cocoa butter creates. Data on India shows palm oil has contributed to roughly 5% of tropical deforestation areas.</p>
+    <p class="source-line">Source: sustainablepalmoilchoice.eu/deforestation-palm-oil</p>
+
+    <h3>Climate change: a dual exposure</h3>
+    <p>On the physical side, cocoa is highly climate-sensitive and concentrated in Ghana and Côte d'Ivoire, so shifts in temperature and rainfall threaten yields, raw material availability and cost. That risk has already shown up on the cost line: cocoa prices exceeded $4,000 per metric ton in late 2023, their highest in over 45 years, and rose far higher through 2024. For a company whose dominant cost is a single climate-exposed crop, this is arguably the most financially material environmental risk over a five-to-ten-year horizon.</p>
+    <p>On the transition side, Lindt's footprint is overwhelmingly Scope 3 (agriculture and land use). It has committed to net-zero across the value chain by 2050 with science-based targets, and its main lever is agroforestry. The first agroforestry pilot in Côte d'Ivoire launched in 2025 with 3,000 hectares, targeting 20,000 hectares by 2030, which also feeds the emissions target.</p>
+
+    <h3>Biodiversity</h3>
+    <p>Biodiversity flows from the same source: cocoa monoculture versus diversified, shade-grown systems. It is material primarily as a sub-component of the deforestation and climate stories rather than as a standalone issue.</p>
+
+    <h3>Packaging, circularity and water</h3>
+    <p>These are real but second-tier. They matter for ESG ratings and consumer optics, recyclability targets, RSPO-certified palm oil, water withdrawal reduction in production, but they are not where value is genuinely at risk.</p>
+  </section>
+
+  <section>
+    <span class="pillar-tag S">SOCIAL</span>
+    <h2>This is where Lindt's materiality is heaviest</h2>
+
+    <h3>Cocoa supply chain human rights</h3>
+    <p>Child labour and forced labour are the defining material issue for the company and the sector. The exposure is structural: roughly 90% of cocoa comes from millions of smallholdings, and Ghana plus Côte d'Ivoire account for around 60% of supply. Lindt is named explicitly in the recurring-controversy set. Sustainalytics records 167 child labour incidents in food company supply chains over a decade, concentrated among seven major players including Lindt, and in January 2024 the Swiss programme Rundschau documented prohibited child labour among Ghanaian cocoa farmers allegedly supplying Lindt, despite the company advertising its own anti-child-labour programme.</p>
+    <p>The financial materiality is litigation and regulatory. Peers, Mars, Cargill, Mondelēz, Nestlé, Hershey, face US human rights suits, and the binding pressure now comes from the Swiss due diligence ordinance on child labour, the German LkSG, and the CSDDD. The gap between the advertised programme and the on-ground findings is the dangerous part, because it converts a social issue into a governance and litigation issue.</p>
+
+    <h3>Farmer livelihoods and living income</h3>
+    <p>Tightly coupled to the above, and increasingly treated as a resilience issue rather than a charity line. Farmers with inadequate income are less able to invest in sustainable practices and more exposed to climate shocks, crop disease and market volatility. Lindt's response is the Farming Program and a living income pilot, with a stated aim to support 5,000 cocoa farmers in West Africa through a living income programme by 2027. Financial materiality: supply security, and the credibility of every other social claim depends on it. Impact materiality: poverty in the producer base.</p>
+
+    <h3>Product safety and consumer health</h3>
+    <p>The most underrated material issue, and it strikes directly at Lindt's economic model. The premium pricing rests entirely on a purity and craftsmanship claim, and that claim is under legal attack. A US class action alleges Lindt failed to disclose lead and cadmium in dark chocolate, notably the Excellence 70% and 85% bars, following 2022 Consumer Reports testing. The court denied Lindt's motion to dismiss and the suit is proceeding toward class certification.</p>
+    <p>The reputational damage is self-inflicted on the governance side: to fight the suit, Lindt's own lawyers argued that "expertly crafted with the finest ingredients" was mere puffery, exaggerated advertising on which no reasonable buyer would rely. For a brand that sells the premium claim itself, conceding in court that the premium claim is unreliable is materially worse than the heavy-metals exposure on its own. Nutrition, sugar and responsible marketing toward under-16s sit here too, but are lower tier.</p>
+
+    <h3>Adjacent supply chains</h3>
+    <p>These repeat the cocoa pattern at smaller scale. Turkish hazelnuts, where roughly 70% of the world harvest originates in the Black Sea region, carry high risk around child labour, seasonal worker conditions, and health and safety. Vanilla from Madagascar and palm carry comparable social risk. Material, but second to cocoa by volume and salience.</p>
+
+    <h3>Own workforce</h3>
+    <p>Occupational health and safety, the zero-lost-time-accident ambition, and the 40% women-in-senior-leadership target are standard practice, and lower materiality relative to the value chain issues above.</p>
+  </section>
+
+  <section>
+    <span class="pillar-tag G">GOVERNANCE</span>
+    <h2>Ownership structure caps the governance score</h2>
+
+    <h3>Ownership and control</h3>
+    <p>This is the issue that structurally caps Lindt's G score. The company runs a dual-class system: registered shares carry voting rights, while bearer participation certificates have no votes, though both share equally in dividends and liquidation proceeds. The float is deliberately skewed, with far more participation certificates than registered shares, so the economic owners and the voting owners are different populations.</p>
+    <p>Control is further entrenched by a 4% cap on registered shares any single buyer may hold, with the Board able to refuse full shareholder status above that threshold, and by a long-term aligned block: the company's pension and financing foundations held around 15.4% of capital and votes as of end-2023, historically above 20%. The effect, as ownership analysts put it, is that a 5% cap on registrable voting rights together with the pension fund block prevents activist influence, and there have been no major proxy battles. For an ESG assessment this is the classic minority-rights and entrenchment flag: international institutions and index funds bear the economic risk without a meaningful vote, and the structure is effectively takeover-proof.</p>
+
+    <h3>Board structure and independence</h3>
+    <p>Control is concentrated around long-tenured leadership, with Ernst Tanner as Executive Chairman and Adalbert Lechner as CEO, plus former CEOs retaining board roles. The combined executive-chair role and the mix of long-serving insiders weaken the independence signal that ESG methodologies reward.</p>
+
+    <h3>Supply chain governance and due diligence quality</h3>
+    <p>This is the governance overlay that determines whether the social and environmental risks above are actually managed: the Supplier Code of Conduct, traceability systems, child labour monitoring and remediation systems (CLMRS), and third-party certification. Lindt's recent move to 100% Rainforest Alliance certified cocoa under its Farming Program strengthens the management-systems score, but certification is verification, not outcome, and the Rundschau findings show the residual gap. Lindt has also started putting the Rainforest Alliance certification on packaging, so sustainability is now part of its marketing strategy as well as its sourcing strategy. The quality of these systems, not the existence of targets, is what should be graded.</p>
+
+    <h3>Does the indirect supply chain shift the blame?</h3>
+    <p>One of Lindt's recurring defences is that most child and forced labour risk sits in tier 2+ of the supply chain (indirect suppliers it does not contract with directly), not tier 1 (the suppliers it does). That gap is structurally real. Traceability collapses sharply once cocoa moves past the first buyer: industry-wide, only about 22% of indirect cocoa supply is traceable to the farm level, against far higher rates in direct sourcing. Cargill traces just 10% of its indirect suppliers back to point of purchase, and Barry Callebaut's indirect traceability moved from 9% to 22% between 2022 and 2023. So the visibility gap Lindt points to is not invented.</p>
+    <p>What it does not do is function as a legal shield. The standard move, "we rely on our suppliers to monitor", rests on supplier codes of conduct and contractual compliance clauses doing the work of due diligence. Under the CSDDD, that specific move is explicitly insufficient: contractual clauses requiring suppliers to comply with standards do not on their own discharge a company's due diligence obligation, and even third-party audits do not fully shield an in-scope company from liability. Actual due diligence, not paperwork, is what determines liability.</p>
+    <p>Where tier 1 versus tier 2+ does matter legally is scope, not excuse. The CSDDD as adopted applies due diligence obligations across a company's full value chain, not only to direct suppliers. But this is actively contested: the EU's Omnibus simplification process includes a proposal to restrict due diligence obligations to direct (tier 1) suppliers only, which would meaningfully narrow companies' formal responsibility for what happens further upstream. If that change goes through, Lindt's tier 1/tier 2+ argument gains legal traction it does not currently have. Worth tracking as a live regulatory variable rather than a settled fact, since which way it lands changes how much indirect-tier risk a company can actually deflect.</p>
+
+    <h3>Business ethics and claim integrity</h3>
+    <p>The cross-cutting governance risk. The puffery admission and the distance between advertised programmes and documented incidents both create greenwashing exposure under tightening EU rules, including the Green Claims Directive trajectory and CSRD/ESRS double materiality disclosure. For a company whose entire brand equity is a trust claim, the integrity of its marketing and sustainability claims is genuinely material, not boilerplate.</p>
+  </section>
+
+  <footer>
+    <p>Synthesized cocoa supply chain risks across ESG pillars using a double materiality framework.</p>
+    <p class="source-list">
+      lindt-spruengli.com/sustainability<br>
+      sustainalytics.com (child labour in cocoa supply chains)<br>
+      sustainablepalmoilchoice.eu (palm oil and deforestation)<br>
+      ConfectioneryNews, ESG News, Daily Maverick, LawGud, Lindt &amp; Sprüngli investor disclosures (company and litigation reporting)
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
